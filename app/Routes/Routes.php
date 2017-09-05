@@ -25,7 +25,8 @@ class Routes {
         });
 
         $this->klein->respond('POST', '/login', function ($request, $response, $service) {
-            var_dump($_REQUEST);
+            $n = new \App\Controllers\account\Login($_POST);
+            $n->validador();
         });
 
         $this->klein->dispatch();

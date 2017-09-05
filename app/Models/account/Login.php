@@ -2,8 +2,6 @@
 
 namespace App\Models\account;
 
-require_once "../../../vendor/autoload.php";
-
 class Login{
 
     private $connect;
@@ -15,24 +13,14 @@ class Login{
     public function getRoot($user){
 
         $sql = "select * from root where username = '$user'";
+        $result = $this->connect->getConnection()->query($sql); 
+        $resultado = mysqli_fetch_assoc($result);
 
-        $result = $this->connect->getConnection()->query($sql);
-
-        if($result){
-
-            $i = 0;
-            while ($dados = mysqli_fetch_assoc($result)){
-                $array[$i] = $dados;
-                $i++;
-            }
-            return ["status" => 200, "resultado" => $array];
-
+        if($resultado){
+            return ["status" => 200, "resultado" => $resultado];
         }else{
             return ["status" => 404, "resultado" => "Nada encontrado"];
         }
     }
 
 }
-
-$lo = new \App\Models\account\Login();
-$lo->getRoot("geovane");
