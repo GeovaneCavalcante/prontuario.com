@@ -1,0 +1,25 @@
+.nav1{
+    background: #6d02d8;
+}
+.imguser{
+    padding: 0px;
+    margin: 0px;
+}
+.lgo{
+    font-weight: 800;
+    
+}
+.lo{
+    border: solid 1px red;
+    padding-left: 4%;
+    padding-right: 4%;
+}
+#sidbar{
+    border-right: solid 3px #dbdbdb;
+    overflow: auto;
+    background-color: white;
+   
+}
+#dash{
+    background: #f4f4f4;
+}
