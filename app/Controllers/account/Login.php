@@ -25,7 +25,7 @@ class Login{
     }
 
     private function sessao($resultado, $dados){
-        session_start();
+        
         if (count($resultado)==0){
             $valor = $dados['resultado'];
             $_SESSION['login'] = $valor['username'];

@@ -26,23 +26,3 @@ class Connect{
     }
 
 }
-/*
-
-$co = new Connect();
-$co->testeConnection();
-
-$sql = "SELECT * FROM root";
-$result = $co->getConnection()->query($sql);
-if (!$result){
-    echo "erro";
-}else{
-    $i = 0;
-    while ($dados = mysqli_fetch_assoc($result)){
-         $array[$i] = $dados;
-         $i++;
-         echo $dados["pass"];
-
-    }
-   
-}
-*/

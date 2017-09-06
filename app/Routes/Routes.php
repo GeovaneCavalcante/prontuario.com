@@ -12,28 +12,18 @@ class Routes {
     public function __construct() {
         $this->klein = new Klein();
         $this->twig = new Twig();
+        session_start();
     }
     
     public function start(){
 
-        $this->klein->respond('/', function ($request, $response, $service) {
-            echo $this->twig->getTwig()->render('base.html');
-        });
-
-        $this->klein->respond('GET', '/login', function ($request, $response, $service) {
-            echo $this->twig->getTwig()->render('/account/login.html');
-        });
-
-        $this->klein->respond('POST', '/login', function ($request, $response, $service) {
-            $n = new \App\Controllers\account\Login($_POST);
-            if (count($n->validador()) > 0){
-                echo $this->twig->getTwig()->render('/account/login.html', array(
-                    "erro" => $n->validador())
-                );
-            }else{
-                $response->redirect('/');
-            }
-        });
+        /*Login e autenticação*/
+        $login = new \App\Routes\account\Login($this->klein, $this->twig);
+        $login->start();
+       
+        /*Home da aplicação*/
+        $core = new \App\Routes\core\Core($this->klein, $this->twig);
+        $core->start();
 
         $this->klein->dispatch();
     }
