@@ -24,8 +24,10 @@ class Routes {
         /*Home da aplicação*/
         $core = new \App\Routes\core\Core($this->klein, $this->twig);
         $core->start();
+        $core->error();
 
         $this->klein->dispatch();
+        
     }
 
 }

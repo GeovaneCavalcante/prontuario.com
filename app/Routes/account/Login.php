@@ -13,9 +13,8 @@ class Login{
     public function start(){
 
         $this->klein->respond('GET', '/login', function ($request, $response, $service) {
-
             if ($_SESSION){
-                echo "Você está logado";
+                $response->redirect('/');
             }else{
                 echo $this->twig->getTwig()->render('/account/login.html');
             }
@@ -29,6 +28,16 @@ class Login{
                 );
             }else{
                 $_SESSION['status'] = true;
+                $response->redirect('/');
+            }
+        });
+        
+
+        $this->klein->respond('GET', '/logout', function ($request, $response, $service) {
+            if ($_SESSION){
+                session_destroy();
+                $response->redirect('/login');
+            }else{
                 $response->redirect('/');
             }
         });
