@@ -19,7 +19,21 @@ class Login{
         
         $root = new \App\Models\account\Login();
         $dados = $root->getRoot($this->user);
-        $this->verificarUser($dados, $this->user, $this->pass);
+        $resultado = $this->verificarUser($dados, $this->user, $this->pass);
+        $this->sessao($resultado, $dados);
+        return $resultado;
+    }
+
+    private function sessao($resultado, $dados){
+        session_start();
+        if (count($resultado)==0){
+            $valor = $dados['resultado'];
+            $_SESSION['login'] = $valor['username'];
+            $_SESSION['senha'] = $valor['pass'];
+        }else{
+            unset ($_SESSION['login']);
+            unset ($_SESSION['senha']);
+        }
 
     }
 

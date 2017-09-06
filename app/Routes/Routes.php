@@ -14,7 +14,7 @@ class Routes {
         $this->twig = new Twig();
     }
     
-    public function start() {
+    public function start(){
 
         $this->klein->respond('/', function ($request, $response, $service) {
             echo $this->twig->getTwig()->render('base.html');
@@ -26,7 +26,13 @@ class Routes {
 
         $this->klein->respond('POST', '/login', function ($request, $response, $service) {
             $n = new \App\Controllers\account\Login($_POST);
-            $n->validador();
+            if (count($n->validador()) > 0){
+                echo $this->twig->getTwig()->render('/account/login.html', array(
+                    "erro" => $n->validador())
+                );
+            }else{
+                $response->redirect('/');
+            }
         });
 
         $this->klein->dispatch();

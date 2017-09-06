@@ -33,6 +33,20 @@
     <a><b>Prontuário</b>Médico</a>
   </div>
   <!-- /.login-logo -->
+  {% if erro %}
+    <div class="panel panel-danger alert-danger">
+      <div class="panel-body" style="text-align: center; padding: 0px;">
+        <h4><strong>Atenção</strong></h4>
+      </div>
+      <div class="panel-footer" style="color: black">
+          <ul>
+              {% for err in erro %}
+                  <li>{{ err }}</li>
+              {% endfor %}
+          </ul>
+      </div>
+    </div>
+  {% endif %}  
   <div class="login-box-body">
     <p class="login-box-msg">Entre para iniciar sua sessão</p>
 
