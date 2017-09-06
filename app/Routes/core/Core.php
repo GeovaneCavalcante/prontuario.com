@@ -28,12 +28,7 @@ class Core{
             switch($code) {
                 case 404:
                     $router->response()->body(
-                        'Essa pagina não existe 404'
-                    );
-                    break;
-                case 405:
-                    $router->response()->body(
-                        'You can\'t do that!'
+                        $this->twig->getTwig()->render('/core/error.html')
                     );
                     break;
                 default:
