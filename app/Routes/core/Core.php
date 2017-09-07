@@ -14,7 +14,9 @@ class Core{
 
         $this->klein->respond('/', function ($request, $response, $service) {
             if ($_SESSION['status'] == true){
-                echo $this->twig->getTwig()->render('base.html');
+                    echo $this->twig->getTwig()->render('base.html', array(
+                    "user" => $_SESSION,
+                ));
             }else{
                 $response->redirect('/login');
             }

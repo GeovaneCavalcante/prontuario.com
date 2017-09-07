@@ -17,7 +17,6 @@ class Contato{
            return ["status" => 404, "resultado" => "Nada encontrado"];
        }else{
            $i = 0;
-           echo $result['username'];
            while ($dados = mysqli_fetch_assoc($result)){
                 $array[$i] = $dados;
                 $i++;

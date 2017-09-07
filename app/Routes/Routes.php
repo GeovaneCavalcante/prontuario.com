@@ -26,6 +26,9 @@ class Routes {
         $core->start();
         $core->error();
 
+        $core = new \App\Routes\medico\Medico($this->klein, $this->twig);
+        $core->start();
+
         $this->klein->dispatch();
         
     }
