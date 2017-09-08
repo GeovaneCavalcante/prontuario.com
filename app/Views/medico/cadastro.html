@@ -43,7 +43,7 @@
               </div>
               <div class="form-group">
                 <label for="exampleInputPassword1">CEP</label>
-                <input type="text" class="form-control" id="exampleInputPassword1" placeholder="CEP">
+                <input id="CEP" type="text" class="form-control" id="exampleInputPassword1" placeholder="CEP" data-inputmask='"mask": "99999-999"' data-mask>
               </div>
           </div>
         </div>
@@ -53,7 +53,7 @@
               <div class="col-md-12">
                   <div class="form-group">
                       <label for="exampleInputEmail1">CPF</label>
-                      <input type="text" class="form-control" id="exampleInputEmail1" placeholder="CPF">
+                      <input id="CPF" type="text" class="form-control" id="exampleInputEmail1" placeholder="CPF" data-inputmask='"mask": "999.999.999-99"' data-mask>
                   </div>
                 <div class="form-group">
                   <label>Estado</label>
@@ -81,15 +81,19 @@
                   <label for="exampleInputPassword1">Nacionalidade</label>
                   <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Nacionalidade">
                 </div>
-                <label for="exampleInputPassword1">Data Nascimento</label>
-                <div class="input-group">
-                  <div class="input-group-addon">
-                    <i class="fa fa-calendar"></i>
+                <div class="form-group">
+                    <label>Data Nascimento</label>
+    
+                    <div class="input-group">
+                      <div class="input-group-addon">
+                        <i class="fa fa-calendar"></i>
+                      </div>
+                      <input type="text" class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask>
+                    </div>
+                    <!-- /.input group -->
                   </div>
-                  <input type="text" class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask>
-                </div>
               </div>
-            </div>
+            </div>  
           </div>
         </div>
         <div class="col-md-4">
@@ -98,7 +102,7 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label for="exampleInputEmail1">RG</label>
-                        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="RG">
+                        <input id="RG" type="text" class="form-control" id="exampleInputEmail1" placeholder="RG">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">Email</label>
@@ -110,7 +114,7 @@
                           <div class="input-group-addon">
                             <i class="fa fa-phone"></i>
                           </div>
-                          <input type="text" class="form-control" data-inputmask='"mask": "(999) 999-9999"' data-mask>
+                          <input type="text" class="form-control" data-inputmask='"mask": "(99) 9999-9999"' data-mask>
                         </div>
                         <!-- /.input group -->
                       </div>
@@ -123,8 +127,7 @@
                           <div class="input-group-addon">
                             <i class="fa fa-phone"></i>
                           </div>
-                          <input type="text" class="form-control"
-                                 data-inputmask="'mask': ['999-999-9999 [x99999]', '+099 99 99 9999[9]-9999']" data-mask>
+                          <input type="text" class="form-control" data-inputmask='"mask": "(99) 999-9999"' data-mask>
                         </div>
                         <!-- /.input group -->
                       </div>
@@ -133,15 +136,23 @@
                           <input type="email" class="form-control" id="exampleInputPassword1" placeholder="Trabalho">
                       </div>
                       <div class="form-group">
-                          <label for="exampleInputPassword1">Especialidade</label>
-                          <input type="email" class="form-control" id="exampleInputPassword1" placeholder="Especialidade">
+                          <label>Especialidades</label>
+                          <select class="form-control select2" multiple="multiple" data-placeholder="Especialidades"
+                                  style="width: 100%;">
+                            <option>Alabama</option>
+                            <option>Alaska</option>
+                            <option>California</option>
+                            <option>Delaware</option>
+                            <option>Tennessee</option>
+                            <option>Texas</option>
+                            <option>Washington</option>
+                          </select>
                       </div>
                 </div>
               </div>
             </div>
-             
           </div>     
-          <div class="col-md-4">  
+          <div class="col-md-12">  
           <div class="box-footer">
               <button type="submit" class="btn btn-primary">Salvar</button>
               <button type="submit" class="btn btn-danger">Cancelar</button>
