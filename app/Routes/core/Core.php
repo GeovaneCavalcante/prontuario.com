@@ -30,12 +30,16 @@ class Core{
             switch($code) {
                 case 404:
                     $router->response()->body(
-                        $this->twig->getTwig()->render('/core/error.html')
+                        $this->twig->getTwig()->render('/core/error.html', array(
+                            "code" => $code
+                        ))
                     );
                     break;
                 default:
                     $router->response()->body(
-                        'Oh no, a bad error happened that caused a '. $code
+                        $this->twig->getTwig()->render('/core/error.html', array(
+                            "code" => $code
+                        ))
                     );
             }
         });

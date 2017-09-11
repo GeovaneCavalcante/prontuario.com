@@ -30,11 +30,17 @@
 <body class="hold-transition login-page">
 <br><br><br>
 <div class="login-box">
-    <div class="login-logo">
+    {% if code == 404 %}
+      <div class="login-logo">
         <a><b>Está página </b>não existe</a>
       </div>
+    {% else %}
+      <div class="login-logo">
+        <a><b>Algo de ruim aconteceu </b>volte ao início</a>
+      </div>
+    {% endif %}  
   <div class="login-logo">
-    <a>Error <b>404</b></a><br>
+    <a>Error <b>{{code}}</b></a><br>
     <a href="http://prontuario.dev/login" class="btn  btn-danger" href="#" role="button" style="color: white">Voltar para inicio</a>
   </div>
   <div class="login-logo">

@@ -13,21 +13,38 @@ class Medico{
         $this->klein->respond('/medico/cadastro', function ($request, $response, $service) {
             if ($_SESSION['status'] == true){
                     $endereco = new \App\Controllers\core\Endereco();
+                    $esp = new \App\Controllers\core\Especialidades();
                     echo $this->twig->getTwig()->render('medico\cadastro.html', array(
                     "user" => $_SESSION,
                     "estados" => $endereco->getEstados(),
                     "cidades" => $endereco->getCidades(),
+                    "especialidades" => $esp->getEspecialidades()
                 ));
             }else{
                 $response->redirect('/login');
             }
             
         });
-        $this->klein->respond('/medico', function ($request, $response, $service) {
-            
-            
-        });
 
-       
+        $this->klein->respond('POST', '/medico/register', function ($request, $response, $service) {
+            
+            $con = new \App\Controllers\medico\Medico($_POST);
+            if($con->Validacao()){
+                $endereco = new \App\Controllers\core\Endereco();
+                $esp = new \App\Controllers\core\Especialidades();
+                echo $this->twig->getTwig()->render('medico\cadastro.html', array(
+                    "user" => $_SESSION,
+                    "estados" => $endereco->getEstados(),
+                    "cidades" => $endereco->getCidades(),
+                    "especialidades" => $esp->getEspecialidades(),
+                    "erros" => $con->Validacao(),
+                    "dados" => $_POST
+                ));
+            }else{
+               $mo = new \App\Models\medico\Medico();
+               $mo->inserMedico($_POST);
+            }
+        });
+ 
     }
 }

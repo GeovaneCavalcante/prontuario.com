@@ -11,7 +11,8 @@ class Connect{
     private $conexao;
 
     public function __construct(){
-        $this->conexao = mysqli_connect($this->host, $this->user, $this->pass, $this->db);      
+        $this->conexao = mysqli_connect($this->host, $this->user, $this->pass, $this->db);   
+        $this->conexao->set_charset("utf8"); 
     }
 
     public function testeConnection(){
