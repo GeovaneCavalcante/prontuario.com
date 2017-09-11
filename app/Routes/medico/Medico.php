@@ -11,6 +11,7 @@ class Medico{
     public function start(){
 
         $this->klein->respond('/medico/cadastro', function ($request, $response, $service) {
+            
             if ($_SESSION['status'] == true){
                     $endereco = new \App\Controllers\core\Endereco();
                     $esp = new \App\Controllers\core\Especialidades();
@@ -29,7 +30,9 @@ class Medico{
         $this->klein->respond('POST', '/medico/register', function ($request, $response, $service) {
             
             $con = new \App\Controllers\medico\Medico($_POST);
+
             if($con->Validacao()){
+
                 $endereco = new \App\Controllers\core\Endereco();
                 $esp = new \App\Controllers\core\Especialidades();
                 echo $this->twig->getTwig()->render('medico\cadastro.html', array(
@@ -40,11 +43,21 @@ class Medico{
                     "erros" => $con->Validacao(),
                     "dados" => $_POST
                 ));
+
             }else{
-               $mo = new \App\Models\medico\Medico();
-               $mo->inserMedico($_POST);
+
+                if ($con->insertMedico() == 200){
+                    echo "Só no ponto";
+                }else{
+                    echo "erro";
+                }
+
             }
         });
- 
+
+        $this->klein->respond('POST', '/medico', function ($request, $response, $service) {
+            
+           
+        });
     }
 }
