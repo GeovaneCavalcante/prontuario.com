@@ -4930,7 +4930,7 @@
 	/**
 	 * Alter the display settings to change the page
 	 *  @param {object} settings DataTables settings object
-	 *  @param {string|int} action Paging action to take: "first", "previous",
+	 *  @param {string|int} action Paging action to take: "first", "Anterior",
 	 *    "next" or "last" or page number to jump to (integer)
 	 *  @param [bool] redraw Automatically draw the update or not
 	 *  @returns {bool} true page has changed, false - no change
@@ -4960,7 +4960,7 @@
 		{
 			start = 0;
 		}
-		else if ( action == "previous" )
+		else if ( action == "Anterior" )
 		{
 			start = len >= 0 ?
 				start - len :
@@ -4971,7 +4971,7 @@
 			  start = 0;
 			}
 		}
-		else if ( action == "next" )
+		else if ( action == "Próximo" )
 		{
 			if ( start + len < records )
 			{
@@ -10709,8 +10709,9 @@
 	
 		/**
 		 * When rendering large numbers in the information element for the table
-		 * (i.e. "Showing 1 to 10 of 57 entries") DataTables will render large numbers
-		 * to have a comma separator for the 'thousands' units (e.g. 1 million is
+		 * (i.e. "Mostrando 1 to 10 of 57 entries") DataTables will render large numbers
+		 * to have a comm
+		 * a separator for the 'thousands' units (e.g. 1 million is
 		 * rendered as "1,000,000") to help readability for the end user. This
 		 * function will override the default method DataTables uses.
 		 *  @type function
@@ -11401,7 +11402,7 @@
 				 *      } );
 				 *    } );
 				 */
-				"sPrevious": "Previous"
+				"sPrevious": "Anterior"
 			},
 	
 			/**
@@ -11456,14 +11457,14 @@
 			 *      } );
 			 *    } );
 			 */
-			"sInfo": "Showing _START_ to _END_ of _TOTAL_ entries",
+			"sInfo": "Mostrando _START_ de _END_ para _TOTAL_ entradas",
 	
 	
 			/**
 			 * Display information string for when the table is empty. Typically the
 			 * format of this string should match `info`.
 			 *  @type string
-			 *  @default Showing 0 to 0 of 0 entries
+			 *  @default Mostrando 0 to 0 of 0 entries
 			 *
 			 *  @dtopt Language
 			 *  @name DataTable.defaults.language.infoEmpty
@@ -11472,12 +11473,12 @@
 			 *    $(document).ready( function() {
 			 *      $('#example').dataTable( {
 			 *        "language": {
-			 *          "infoEmpty": "No entries to show"
+			 *          "infoEmpty": "No entrado to show"
 			 *        }
 			 *      } );
 			 *    } );
 			 */
-			"sInfoEmpty": "Showing 0 to 0 of 0 entries",
+			"sInfoEmpty": "Mostrando 0 to 0 of 0 entradas",
 	
 	
 			/**
@@ -11617,7 +11618,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sLengthMenu": "Show _MENU_ entries",
+			"sLengthMenu": "Mostrar _MENU_ entrados",
 	
 	
 			/**
@@ -11697,7 +11698,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sSearch": "Search:",
+			"sSearch": "Pesquisa:",
 	
 	
 			/**
@@ -14103,7 +14104,7 @@
 		 *  @example
 		 *    // Show previous, next and current page buttons only
 		 *    $.fn.dataTableExt.oPagination.current = function ( page, pages ) {
-		 *      return [ 'previous', page, 'next' ];
+		 *      return [ 'próximo', page, 'next' ];
 		 *    };
 		 */
 		pager: {},
@@ -14537,11 +14538,11 @@
 	
 	$.extend( extPagination, {
 		simple: function ( page, pages ) {
-			return [ 'previous', 'next' ];
+			return [ 'Anterior', 'Próximo' ];
 		},
 	
 		full: function ( page, pages ) {
-			return [  'first', 'previous', 'next', 'last' ];
+			return [  'first', 'Anterior', 'Próximo', 'last' ];
 		},
 	
 		numbers: function ( page, pages ) {
@@ -14549,11 +14550,11 @@
 		},
 	
 		simple_numbers: function ( page, pages ) {
-			return [ 'previous', _numbers(page, pages), 'next' ];
+			return [ 'Anterior', _numbers(page, pages), 'Próximo' ];
 		},
 	
 		full_numbers: function ( page, pages ) {
-			return [ 'first', 'previous', _numbers(page, pages), 'next', 'last' ];
+			return [ 'first', 'Anterior ', _numbers(page, pages), 'Próximo', 'last' ];
 		},
 		
 		first_last_numbers: function (page, pages) {
@@ -14605,13 +14606,13 @@
 										'' : ' '+classes.sPageButtonDisabled);
 									break;
 	
-								case 'previous':
+								case 'Anterior':
 									btnDisplay = lang.sPrevious;
 									btnClass = button + (page > 0 ?
 										'' : ' '+classes.sPageButtonDisabled);
 									break;
 	
-								case 'next':
+								case 'Próximo':
 									btnDisplay = lang.sNext;
 									btnClass = button + (page < pages-1 ?
 										'' : ' '+classes.sPageButtonDisabled);

@@ -1,0 +1,367 @@
+{% extends "base.html" %} {% block title %}
+<title>Prontuário | Lista</title>{% endblock %} {% block contentheader %}
+<h1>
+        Área Médica
+        <small>Lista médica</small>
+    </h1>
+<ol class="breadcrumb">
+  <li><a href="#"><i class="fa fa-user-plus"></i>Médicos</a></li>
+  <li class="active">Lista médica</li>
+</ol>
+{% endblock %} {% block content %}
+<div class="box">
+  <div class="box-header">
+    <h3 class="box-title">Médicos</h3>
+  </div>
+  <!-- /.box-header -->
+  <div class="box-body">
+    <table class="table table-bordered table-striped">
+      <div class="row linha">
+        <div class="col-sm-3">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="pesquisa">
+            <span class="input-group-btn">
+                            <button class="btn btn-secondary" type="button">Pesquisar</button>
+                        </span>
+          </div>
+        </div>
+        <div class="col-sm-9">
+        </div>
+      </div>
+  </div>
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>CRM</th>
+      <th>Especialidades</th>
+      <th>Contatos</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for medico in dados%}
+    <tr>
+      <td>{{medico.nome}}</td>
+      <td>{{medico.crm}}</td>
+      <td>
+        <div class="row linha4">
+          <button title="Visualizar" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default{{medico.crm}}">Visualizar <i class="fa fa-eye" data-toggle="modal" data-target="#exampleModal"></i> </button>
+        </div>
+      </td>
+      <td>
+        <div class="row linha4">
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-defaultc{{medico.crm}}">Visualizar <i class="fa fa-eye"></i> </button>
+        </div>
+      </td>
+      <td>
+        <div class="row linha4">
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-defaultv{{medico.crm}}"> <i class="fa fa-eye"></i> </button>
+          <button type="button" class="btn btn-success"> <i class="fa fa-edit"></i> </button>
+          <button type="button" class="btn btn-danger"><i class="fa fa-close"></i> </button>
+        </div>
+      </td>
+      <div class="modal fade bs-example-modal-sm " tabindex="-1" id="modal-default{{medico.crm}}">
+        <div class="modal-dialog  modal-sm">
+          <div class="modal-content">
+            <div class="panel panel-primary" style="border-radius: 0; border: solid white 1px;">
+              <div class="panel-heading" style="border-radius: 0">
+                <h4> <strong>{{medico.nome}}</strong> </h4>
+                <h2 class="panel-title">Especialidades</h2>
+              </div>
+              <div class="panel-body">
+                <ul class="list-group">
+                  {% if medico.especialidades %} {% for esp in medico.especialidades %}
+                  <li class="list-group-item">
+
+                    <h4> <strong>{{esp.nome}}</strong> </h4>
+                  </li>
+                  {% endfor %} {% else %}
+                  <li class="list-group-item">
+                    <h4> <strong>Nenhuma especialidade cadastrada</strong> </h4>
+                  </li>
+                  {% endif %}
+                </ul>
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Fechar</button>
+              </div>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+
+      <div class="modal fade bs-example-modal-sm " tabindex="-1" id="modal-defaultc{{medico.crm}}">
+        <div class="modal-dialog  modal-sm">
+          <div class="modal-content">
+            <div class="panel panel-primary" style="border-radius: 0; border: solid white 1px;">
+              <div class="panel-heading" style="border-radius: 0">
+                <h4> <strong>{{medico.nome}}</strong> </h4>
+                <h2 class="panel-title">Contatos</h2>
+              </div>
+              <div class="panel-body">
+                <ul class="list-group">
+                  <div class="form-group">
+                    <li class="list-group-item">
+                      <h4> <strong>Telefone</strong> </h4>
+                      <input value="{{medico.telefone}}" name="celular" type="text" class="form-control" disabled data-inputmask='"mask": "(99) 99999-9999"' data-mask>
+                    </li>
+                    <li class="list-group-item">
+                      <h4> <strong>Celular</strong> </h4>
+                      <input value="{{medico.celular}}" name="celular" type="text" class="form-control" disabled data-inputmask='"mask": "(99) 99999-9999"' data-mask>
+                    </li>
+                    <li class="list-group-item">
+                      <h4> <strong>Trabalho</strong> </h4>
+                      <input value="{{medico.trabalho}}" name="celular" type="text" class="form-control" disabled data-inputmask='"mask": "(99) 99999-9999"' data-mask>
+                    </li>
+                    <li class="list-group-item">
+                      <h4> <strong>Email</strong> </h4>
+                      <input value="{{medico.email}}" name="celular" type="text" class="form-control" disabled>
+                    </li>
+                  </div>
+                </ul>
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Fechar</button>
+              </div>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+
+
+
+
+
+
+      <!-- inicio model ver -->
+      <div class="modal fade bs-example-modal-lg " tabindex="-1" id="modal-defaultv{{medico.crm}}">
+        <div class="modal-dialog modal-lg " role="document">
+          <div class="modal-content">
+          
+            <div class="row">
+              <div class="col-md-12">
+                <div class="box box-primary {% if erros %} box-danger {% endif %}  {% if exist %} box-warning {% endif %} ">
+                  <div class="box-header with-border">
+                    <h3 class="box-title">Cadastro médico</h3>
+                  </div>
+                  <div class="row">
+            
+                   
+                      <div class="col-md-4">
+                        <div class="box-body">
+                          <div class="form-group ">
+                            <label for="exampleInputEmail1">Nome Completo </label>
+                            <input value="{{dados['nome']}}" name="nome" type="text" class="form-control" id="exampleInputEmail1" placeholder="Nome completo"> {% if erros["nome"] %} <span class="help-block">Nome é obrigatório</span> {% endif %}
+                          </div>
+                          <div class="form-group {% if exist[" crm "] %} has-warning {% endif %} {% if erros["crm "] %} has-error {% endif %}">
+                            <label for="exampleInputEmail1">
+                                  {% if erros["crm"] %} <i class="fa fa-times-circle-o"></i> {% endif %}
+                                  {% if exist['crm'] %} <i class="fa fa-bell-o"></i> </i> {% endif %}
+                                   CRM <b style="color: red">*</b></label>
+                            <input value="{{dados['crm']}}" name="crm" type="text" class="form-control" id="exampleInputEmail1" placeholder="CRM"> {% if erros["crm"] %} <span class="help-block">CRM é obrigatório</span> {% endif %} {% if exist["crm"] %} <span class="help-block">CRM já está cadastrado</span>                {% endif %}
+            
+                          </div>
+                          <div class="form-group">
+                            <label for="exampleInputPassword1">Endereço</label>
+                            <input value="{{dados['endereco']}}" name="endereco" type="text" class="form-control" id="exampleInputPassword1" placeholder="Endereço">
+                          </div>
+                          <div class="form-group">
+                            <label for="exampleInputPassword1">Bairro</label>
+                            <input value="{{dados['bairro']}}" name="bairro" type="text" class="form-control" id="exampleInputPassword1" placeholder="Bairro">
+                          </div>
+                          <div class="form-group">
+                            <label for="exampleInputPassword1">Complemento</label>
+                            <input value="{{dados['complemento']}}" name="complemento" type="text" class="form-control" id="exampleInputPassword1" placeholder="Complemento">
+                          </div>
+                          <div class="form-group">
+                            <label for="exampleInputPassword1">CEP</label>
+                            <input value="{{dados['cep']}}" name="cep" id="CEP" type="text" class="form-control" id="exampleInputPassword1" placeholder="CEP" data-inputmask='"mask": "99999-999"' data-mask>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="box-body">
+                          <div class="row">
+                            <div class="col-md-12">
+                              <div class="form-group {% if exist[" cpf "] %} has-warning {% endif %} {% if erros["cpf "] %} has-error {% endif %}">
+                                <label for="exampleInputEmail1">
+                                    {% if erros["cpf"] %} <i class="fa fa-times-circle-o"></i> {% endif %}
+                                    {% if exist['cpf'] %} <i class="fa fa-bell-o"></i> </i> {% endif %}
+                                     CPF <b style="color: red">*</b></label>
+                                <input value="{{dados['cpf']}}" name="cpf" type="text" class="form-control" id="exampleInputEmail1" placeholder="CPF" data-inputmask='"mask": "999.999.999-99"' data-mask> {% if erros["cpf"] %} <span class="help-block">CPF é obrigatório</span>                    {% endif %} {% if exist["cpf"] %} <span class="help-block">CPF já está cadastrado</span> {% endif %}
+                              </div>
+                              <div class="form-group">
+                                <label>Estado</label>
+                                <select name="estado" class="form-control select2" style="width: 100%;">
+                                    <option>Selecione</option>
+                                    {% for estado in estados %}
+                                        <option onclick="teste()" id="estados">{{estado.nome}}</option>
+                                    {% endfor %}
+                              </select>
+                              </div>
+                              <script>
+                                var t = document.getElementById("estados").value;
+            
+                                function teste() {
+                                  alert(t);
+                                }
+                              </script>
+                              <div class="form-group">
+                                <label>Cidade</label>
+                                <select name="cidade" class="form-control select2 " style="width: 100%;">
+                                  <option >Selecione</option>
+                                  {% for cidade in cidades %}
+                                      <option >{{cidade.nome}}</option>
+                                  {% endfor %}
+                              </select>
+                              </div>
+                              <div class="form-group">
+                                <label for="exampleInputPassword1">Naturalidade</label>
+                                <input value="{{dados['naturalidade']}}" name="naturalidade" type="text" class="form-control" id="exampleInputPassword1" placeholder="Naturalidade">
+                              </div>
+                              <div class="form-group">
+                                <label for="exampleInputPassword1">Nacionalidade</label>
+                                <input value="{{dados['nacionalidade']}}" name="nacionalidade" type="text" class="form-control" id="exampleInputPassword1" placeholder="Nacionalidade">
+                              </div>
+                              <div class="form-group {% if erros[" data "] %} has-error {% endif %}">
+                                <label>{% if erros["data"] %} <i class="fa fa-times-circle-o"></i>{% endif %} Data Nascimento <b style="color: red">*</b></label>
+            
+                                <div class="input-group">
+                                  <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+            
+                                  </div>
+                                  <input value="{{dados['data']}}" name="data" type="text" class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask>
+                                </div>
+                                {% if erros["data"] %} <span class="help-block">Data é obrigatório</span> {% endif %}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="box-body">
+                          <div class="row">
+                            <div class="col-md-12">
+                              <div class="form-group {% if exist[" rg "] %} has-warning {% endif %}  {% if erros["rg "] %} has-error {% endif %}">
+                                <label for="exampleInputEmail1">
+                                      {% if erros["rg"] %} <i class="fa fa-times-circle-o"></i>{% endif %}
+                                      {% if exist['rg'] %} <i class="fa fa-bell-o"></i> </i> {% endif %}
+                                      RG <b style="color: red">*</b></label>
+                                <input value="{{dados['rg']}}" name="rg" id="RG" type="text" class="form-control" id="exampleInputEmail1" placeholder="RG"> {% if erros["rg"] %} <span class="help-block">RG é obrigatório</span> {% endif %} {% if exist["rg"] %}
+                                <span class="help-block">RG já está cadastrado</span> {% endif %}
+                              </div>
+                              <div class="form-group">
+                                <label for="exampleInputPassword1">Email</label>
+                                <input value="{{dados['email']}}" name="email" type="email" class="form-control" id="exampleInputPassword1" placeholder="Email">
+                              </div>
+                              <div class="form-group">
+                                <label>Telefone</label>
+                                <div class="input-group">
+                                  <div class="input-group-addon">
+                                    <i class="fa fa-phone"></i>
+                                  </div>
+                                  <input value="{{dados['telefone']}}" name="telefone" type="text" class="form-control" data-inputmask='"mask": "(99) 99999-9999"' data-mask>
+                                </div>
+                                <!-- /.input group -->
+                              </div>
+                              <!-- /.form group -->
+                              <!-- phone mask -->
+                              <div class="form-group">
+                                <label>Celular</label>
+            
+                                <div class="input-group">
+                                  <div class="input-group-addon">
+                                    <i class="fa fa-phone"></i>
+                                  </div>
+                                  <input value="{{dados['celular']}}" name="celular" type="text" class="form-control" data-inputmask='"mask": "(99) 99999-9999"' data-mask>
+                                </div>
+                                <!-- /.input group -->
+                              </div>
+                              <div class="form-group">
+                                <label>Telefone trabalho</label>
+            
+                                <div class="input-group">
+                                  <div class="input-group-addon">
+                                    <i class="fa fa-phone"></i>
+                                  </div>
+                                  <input value="{{dados['trabalho']}}" name="trabalho" type="text" class="form-control" data-inputmask='"mask": "(99) 99999-9999"' data-mask>
+                                </div>
+                                <!-- /.input group -->
+                              </div>
+                              <div class="form-group">
+                                <label>Especialidades</label>
+                                <select name="especialidades[]" class="form-control select2" multiple="multiple" data-placeholder="Especialidades" style="width: 100%;">
+                                          {% for esp in especialidades %}
+                                              <option>{{esp.nome}} </option>
+                                          {% endfor %}
+                                      </select>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-12">
+                        <div class="box-footer">
+                          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Fechar</button>
+                        </div>
+                      </div>
+                   
+                  </div>
+                </div>
+              </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+
+      <!-- fim model ver -->
+
+
+
+
+
+
+
+
+
+    </tr>
+    {% endfor %}
+  </tbody>
+  <tfoot>
+    <tr>
+      <th>Nome</th>
+      <th>CRM</th>
+      <th>Especialidades</th>
+      <th>Contatos</th>
+      <th>Ações</th>
+    </tr>
+  </tfoot>
+  </table>
+  <div class="row linha2">
+    <div class="col-sm-12">
+      <nav aria-label="...">
+        <ul class="pagination">
+          <li class="page-item disabled">
+            <span class="page-link">Previous</span>
+          </li>
+          <li class="page-item"><a class="page-link" href="#">1</a></li>
+          <li class="page-item active">
+            <span class="page-link">
+                            2
+                            <span class="sr-only">(current)</span>
+            </span>
+          </li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-item">
+            <a class="page-link" href="#">Next</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+<!-- /.box-body -->
+</div>
+{% endblock %}

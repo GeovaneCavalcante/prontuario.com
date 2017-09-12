@@ -5,10 +5,12 @@ class Medico{
 
     private $post;
     private $modelMedico;
+    private $connect;
 
     public function __construct($post){
         $this->post = $post;
         $this->modelMedico = new \App\Models\medico\Medico();
+        $this->connect = new \Config\Connect();
     }
 
     public function Validacao(){
@@ -24,6 +26,42 @@ class Medico{
         } else {
             return $v->errors();
         }
+    }
+    
+    public function verificar(){
+        $erros = [];
+        $post = $this->removeMascara($this->post);
+
+        $cpf = $post['cpf'];
+        echo $post['celular'];
+        $sql = "select * from medicos where cpf = '$cpf'";
+        $result = $this->connect->getConnection()->query($sql); 
+        $resultado = mysqli_fetch_assoc($result);
+       
+        if ($resultado){
+            $erros['cpf'] = true;
+        }
+
+        $crm = $post['crm'];
+        $sql = "select * from medicos where crm = '$crm'";
+        $result = $this->connect->getConnection()->query($sql); 
+        $resultado = mysqli_fetch_assoc($result);
+
+        if ($resultado){
+            $erros['crm'] = true;
+        }
+
+        $rg = $post['rg'];
+        $sql = "select * from medicos where rg = '$rg'";
+        $result = $this->connect->getConnection()->query($sql); 
+        $resultado = mysqli_fetch_assoc($result);
+
+        if ($resultado){
+            $erros['rg'] = true;
+        }
+        
+        return $erros;
+       
     }
 
     public function insertMedico(){
@@ -57,9 +95,11 @@ class Medico{
             $post['cidade'] = "";
         }
 
+        
+        echo $post['cpf'] . " cpf <br>";
         return $post;
         /*
-        echo $post['cpf'] . " cpf <br>";
+        
         echo $post['cep'] . " cep <br>";
         echo $post['celular'] . " celular <br>";
         echo $post['telefone'] . " telefone <br>";

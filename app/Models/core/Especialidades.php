@@ -25,4 +25,13 @@ class Especialidades{
             return ["status" => 404, "resultado" => "Nada encontrado"];
         }
     }
+
+    public function getEspecialidade($nome){
+
+        $sql = "select * from especialidades where nome = '$nome'";
+        $result = $this->connect->getConnection()->query($sql); 
+        $resultado = mysqli_fetch_assoc($result);
+
+        return $resultado;
+    }
 }

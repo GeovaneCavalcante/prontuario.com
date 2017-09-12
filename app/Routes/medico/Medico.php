@@ -30,8 +30,7 @@ class Medico{
         $this->klein->respond('POST', '/medico/register', function ($request, $response, $service) {
             
             $con = new \App\Controllers\medico\Medico($_POST);
-
-            if($con->Validacao()){
+            if($con->Validacao() or $con->verificar()){
 
                 $endereco = new \App\Controllers\core\Endereco();
                 $esp = new \App\Controllers\core\Especialidades();
@@ -41,6 +40,7 @@ class Medico{
                     "cidades" => $endereco->getCidades(),
                     "especialidades" => $esp->getEspecialidades(),
                     "erros" => $con->Validacao(),
+                    "exist" => $con->verificar(),
                     "dados" => $_POST
                 ));
 
@@ -55,9 +55,12 @@ class Medico{
             }
         });
 
-        $this->klein->respond('POST', '/medico', function ($request, $response, $service) {
+        $this->klein->respond('GET', '/medicos', function ($request, $response, $service) {
             
-           
+            $medicoList = new \App\Controllers\medico\MedicoList();
+            echo $this->twig->getTwig()->render('medico\list.html', array(
+                "dados" => $medicoList->getMedicos()
+            ));
         });
     }
 }
