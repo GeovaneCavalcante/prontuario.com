@@ -18,7 +18,7 @@ class Medico{
         $v = new \Valitron\Validator($this->post);
 
         $v->rule('required', array(
-            'nome', 'cpf', 'rg', 'data', 'crm'
+            'nome', 'cpf', 'rg', 'data_nascimento', 'crm'
         ))->message('{field} é obrigatório');
 
         if($v->validate()) {
@@ -33,8 +33,7 @@ class Medico{
         $post = $this->removeMascara($this->post);
 
         $cpf = $post['cpf'];
-        echo $post['celular'];
-        $sql = "select * from medicos where cpf = '$cpf'";
+        $sql = "select cpf from medicos where cpf = '$cpf'";
         $result = $this->connect->getConnection()->query($sql); 
         $resultado = mysqli_fetch_assoc($result);
        
@@ -43,7 +42,7 @@ class Medico{
         }
 
         $crm = $post['crm'];
-        $sql = "select * from medicos where crm = '$crm'";
+        $sql = "select crm from medicos where crm = '$crm'";
         $result = $this->connect->getConnection()->query($sql); 
         $resultado = mysqli_fetch_assoc($result);
 
@@ -52,7 +51,7 @@ class Medico{
         }
 
         $rg = $post['rg'];
-        $sql = "select * from medicos where rg = '$rg'";
+        $sql = "select rg from medicos where rg = '$rg'";
         $result = $this->connect->getConnection()->query($sql); 
         $resultado = mysqli_fetch_assoc($result);
 
@@ -63,6 +62,59 @@ class Medico{
         return $erros;
        
     }
+
+    public function verificarUpdate(){
+        $erros = [];
+        
+        $post = $this->removeMascara($this->post);
+        $cpf = $post['cpf'];
+        $sql = "select cpf from medicos where cpf = $cpf";
+        $result = $this->connect->getConnection()->query($sql); 
+
+        $qtd = 0;
+
+        while ($dados2 = mysqli_fetch_assoc($result)){
+            $qtd++;
+        }
+
+        if ($qtd > 1){
+            $erros['cpf'] = true;
+        }
+
+        $post = $this->removeMascara($this->post);
+        $crm = $post['crm'];
+        $sql = "select rg from medicos where crm = $crm";
+        $result = $this->connect->getConnection()->query($sql); 
+
+        $qtd = 0;
+    
+        while ($dados2 = mysqli_fetch_assoc($result)){
+            $qtd++;
+        }
+
+        if ($qtd > 1){
+            $erros['crm'] = true;
+        }
+
+        $post = $this->removeMascara($this->post);
+        $rg = $post['rg'];
+        $sql = "select crm from medicos where rg = $rg";
+        $result = $this->connect->getConnection()->query($sql); 
+
+        $qtd = 0;
+     
+        while ($dados2 = mysqli_fetch_assoc($result)){
+            $qtd++;
+        }
+
+        if ($qtd > 1){
+            $erros['rg'] = true;
+        }
+        return $erros;
+       
+    }
+
+    
 
     public function insertMedico(){
 
@@ -84,9 +136,9 @@ class Medico{
         $post['telefone'] = preg_replace("/\D+/", "", $post['telefone']);
         $post['celular'] = preg_replace("/\D+/", "", $post['celular']);
         $post['trabalho'] = preg_replace("/\D+/", "", $post['trabalho']); 
-        $var = $post['data'];
+        $var = $post['data_nascimento'];
         $date = str_replace('/', '-', $var);
-        $post['data'] = date('Y-m-d', strtotime($date));
+        $post['data_nascimento'] = date('Y-m-d', strtotime($date));
 
         if ($post['estado'] == "Selecione"){
             $post['estado'] = "";
@@ -95,8 +147,6 @@ class Medico{
             $post['cidade'] = "";
         }
 
-        
-        echo $post['cpf'] . " cpf <br>";
         return $post;
         /*
         
@@ -107,4 +157,17 @@ class Medico{
         echo $post['data'] . " data <br>";
         */
     }
+
+    public function updateMedico(){
+
+        $post = $this->removeMascara($this->post);
+        $result = $this->modelMedico->updateMedico($post);
+
+        if ($result['status'] == 200){
+            return 200;
+        }else{
+            return 405;
+        }
+    }
+
 }

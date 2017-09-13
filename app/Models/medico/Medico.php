@@ -21,7 +21,7 @@ class Medico{
             VALUES 
             ('$dados[crm]', '$dados[nome]', '$dados[endereco]', '$dados[endereco]',
             '$dados[cidade]', '$dados[estado]', '$dados[cep]', '$dados[complemento]',
-            '$dados[cpf]', '$dados[rg]', '$dados[data]', '$dados[naturalidade]',
+            '$dados[cpf]', '$dados[rg]', '$dados[data_nascimento]', '$dados[naturalidade]',
             '$dados[nacionalidade]', '$dados[email]', '$dados[telefone]', '$dados[celular]',
             '$dados[trabalho]'
             )
@@ -45,7 +45,6 @@ class Medico{
                 $medico = new \App\Models\core\Especialidades();
             
                 $especialidade = $medico->getEspecialidade($value);
-                echo "<br>" . $especialidade['nome'] . "<br>" . "kk";
                 $sql = "
                     INSERT INTO especialidades_med 
                     (nome, crm_medico, id_especialidades)
@@ -82,6 +81,82 @@ class Medico{
                 $i++;
             }
             return ["status" => 200, "resultado" => $array];
+        }
+    }
+
+
+    public function getMedico($crm){
+        
+        $sql = "select * from medicos where crm = $crm";
+        $result = $this->connect->getConnection()->query($sql); 
+        $resultado = mysqli_fetch_assoc($result);
+
+        if($resultado){
+            
+            $sql2 = "SELECT * FROM especialidades_med WHERE crm_medico = '$resultado[crm]'";
+            $result2 = $this->connect->getConnection()->query($sql2);
+            $j = 0;
+            $array2 = [];
+            while ($dados2 = mysqli_fetch_assoc($result2)){
+                $array2[$j] = $dados2;
+                $j++;
+            }
+
+            if($array2){
+               $resultado['esp'] =  $array2;
+            }else{
+               $resultado['esp'] = "Nada encontrado";
+            }
+
+            return ["status" => 200, "resultado" => $resultado];
+        }else{
+            return ["status" => 404, "resultado" => "Nada encontrado"];
+        }
+    }
+
+
+    public function updateMedico($dados){
+        $sq = "
+            UPDATE medicos
+           SET crm = '$dados[crm]'
+            WHERE crm = '$dados[crm]'
+        "; 
+        $crm =  $dados['crm'];
+        $sql = "
+        UPDATE `mydb`.`medicos` SET 
+         `nome`='$dados[nome]', `endereco`='$dados[endereco]',
+        `bairro`='$dados[bairro]', `cidade`='$dados[cidade]', `estado`='$dados[estado]', 
+        `cep`='$dados[cep]', `complemento`='$dados[complemento]', `cpf`='$dados[cpf]', `rg`='$dados[rg]', 
+        `data_nascimento`='$dados[data_nascimento]', `naturalidade`='$dados[naturalidade]', 
+        `nacionalidade`='$dados[nacionalidade]',
+         `email`='$dados[email]', `telefone`= '$dados[telefone]', 
+         `celular`= '$dados[celular]', `trabalho`= '$dados[trabalho]' WHERE `crm`= '$dados[crm]';
+        
+        ";
+      
+        if($this->connect->getConnection()->query($sql)==true and $this->connect->getConnection()->query($sq)==true){
+            echo "Atualizado com sucesso" . $this->connect->getConnection()->error;
+            return ["status" => 200, "resultado" => "Atualizado com sucesso"];
+        }else{
+            
+            $error = $this->connect->getConnection()->error;
+            echo "Falha ao criar registro" . $error;
+            return ["status" => 405, "resultado" => "Falha ao atualizar registro:  $error "];
+        }        
+    }
+
+    function deletaMedico($crm){
+        $sql = "
+            DELETE FROM medicos
+            WHERE crm='$crm'
+        ";
+        if ($this->connect->getConnection()->query($sql) == true){
+            echo "Resgistro apado";
+            return ["status" => 200, "resultado" => "Apagado com sucesso"];
+        }else{
+            echo "Erro ao apagar registro";
+            $error = $this->connect->getConnection()->error;
+            return ["status" => 405, "resultado" => "Resgistro não apagado: $error"];
         }
     }
 

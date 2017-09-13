@@ -27,8 +27,8 @@ class Medico{
             
         });
 
+
         $this->klein->respond('POST', '/medico/register', function ($request, $response, $service) {
-            
             $con = new \App\Controllers\medico\Medico($_POST);
             if($con->Validacao() or $con->verificar()){
 
@@ -47,7 +47,7 @@ class Medico{
             }else{
 
                 if ($con->insertMedico() == 200){
-                    echo "Só no ponto";
+                    $response->redirect('/medicos');
                 }else{
                     echo "erro";
                 }
@@ -55,25 +55,94 @@ class Medico{
             }
         });
 
+
         $this->klein->respond('GET', '/medicos/editar', function ($request, $response, $service) {
-            
-            if($_GET['dados']){
-                $medicoList = new \App\Controllers\medico\MedicoList();
-                echo $this->twig->getTwig()->render('medico\editar.html', array(
-                    "dados" => $medicoList->getMedicos()
-                ));
+
+            if ($_SESSION['status'] == true){
+                if($_GET['dados']){
+                    
+                    $medicoList = new \App\Controllers\medico\MedicoList();
+                    $endereco = new \App\Controllers\core\Endereco();
+                    $esp = new \App\Controllers\core\Especialidades();
+                    if ($medicoList->getMedico($_GET['dados']) == 404){
+                        echo $this->twig->getTwig()->render('core\error.html');
+                    }else{
+                        echo $this->twig->getTwig()->render('medico\editar.html', array(
+                            "user" => $_SESSION,
+                            "dados" => $medicoList->getMedico($_GET['dados']),
+                            "estados" => $endereco->getEstados(),
+                            "cidades" => $endereco->getCidades(),
+                            "especialidades" => $esp->getEspecialidades()
+                        ));
+                    }
+                }else{
+                    $response->redirect('/medicos');
+                }
             }else{
-                $response->redirect('/medicos');
+                $response->redirect('/login');
+            }
+        });
+
+
+        $this->klein->respond('POST', '/medico/editar', function ($request, $response, $service) {
+            
+            $con = new \App\Controllers\medico\Medico($_POST);
+            if($con->Validacao()){
+
+                $endereco = new \App\Controllers\core\Endereco();
+                $esp = new \App\Controllers\core\Especialidades();
+                echo $this->twig->getTwig()->render('medico\editar.html', array(
+                    "user" => $_SESSION,
+                    "estados" => $endereco->getEstados(),
+                    "cidades" => $endereco->getCidades(),
+                    "especialidades" => $esp->getEspecialidades(),
+                    "erros" => $con->Validacao(),
+                    "exist" => $con->verificarUpdate(),
+                    "dados" => $_POST
+                ));
+
+            }else{
+
+                if ($con->updateMedico() == 200){
+                    $response->redirect('/medicos');
+                }else{
+                    echo "erro";
+                }
+
             }
           
         });
 
+        $this->klein->respond('GET', '/medicos/apagar', function ($request, $response, $service) {
+            
+            if ($_SESSION['status'] == true){
+                if($_GET['dados']){
+                    $medicoList = new \App\Controllers\medico\MedicoList();
+                    $medicoList->deletaMedico($_GET['dados']);
+                    $response->redirect('/medicos');
+                }else{
+                    $response->redirect('/medicos');
+                }
+            }else{
+                $response->redirect('/login');
+            }
+        });
+
+        
         $this->klein->respond('GET', '/medicos', function ($request, $response, $service) {
             
-            $medicoList = new \App\Controllers\medico\MedicoList();
-            echo $this->twig->getTwig()->render('medico\list.html', array(
-                "dados" => $medicoList->getMedicos()
-            ));
+            if ($_SESSION['status'] == true){
+                $medicoList = new \App\Controllers\medico\MedicoList();
+                echo $this->twig->getTwig()->render('medico\list.html', array(
+                    "user" => $_SESSION,
+                    "dados" => $medicoList->getMedicos()
+                ));
+            }else{
+                $response->redirect('/login');
+            }
+          
         });
+
+        
     }
 }

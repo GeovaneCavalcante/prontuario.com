@@ -22,4 +22,26 @@ class MedicoList{
             echo 'ERRO';
         }
     }
+
+    public function getMedico($crm){
+        $medicos = $this->modelMedico->getMedico($crm);
+
+        if ($medicos['status'] == 200){
+           
+            return $medicos['resultado'];
+        }else{
+          
+            return 404;
+        }
+    }
+
+    public function deletaMedico($crm){
+        $medicos = $this->modelMedico->deletaMedico($crm);
+
+        if ($medicos['status'] == 200){
+            echo "apagado";
+        }else{
+            echo 'ERRO';
+        }
+    }
 }

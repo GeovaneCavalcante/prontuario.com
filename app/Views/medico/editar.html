@@ -1,6 +1,6 @@
 {% extends "base.html" %} 
 {% block title %}
-  <title>Prontuário | Cadastro</title>
+  <title>Prontuário | Editar</title>
 {% endblock %} 
 {% block li %}
 <li><a href="http://prontuario.dev/medico/cadastro"><i class="fa fa-user-plus"></i> Cadastro</a></li>
@@ -9,33 +9,30 @@
 {% block contentheader %}
 <h1>
         Área Médica
-        <small>Cadastro</small>
+        <small>Editar</small>
     </h1>
 <ol class="breadcrumb">
   <li><a href="#"><i class="fa fa-user-plus"></i>Médicos</a></li>
-  <li class="active">Cadastro</li>
+  <li class="active">Editar</li>
 </ol>
 {% endblock %} 
-{% block content %} {% if erros %}
-<div class="alert alert-danger alert-dismissible">
+{% block content %} 
+
+<div class="alert alert-info alert-dismissible">
   <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-  <h4><i class="icon fa fa-ban"></i> Atenção</h4> Preencha os campos necessários para concluir o cadastro!
+  <h4><i class="icon fa fa-info"></i> Alerta ao alterar os dados</h4> 
+  Atualizando as informações será sobreescrito as antigas informações na base de dados!
 </div>
-{% endif %} {% if exist %}
-<div class="alert alert-warning alert-dismissible">
-  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-  <h4><i class="icon fa fa-warning"></i> Dados já existentes</h4> Verifique se esses dados já estão cadastrado em outro usuário!
-</div>
-{% endif %}
+
 <div class="row">
   <div class="col-md-12">
     <div class="box box-primary {% if erros %} box-danger {% endif %}  {% if exist %} box-warning {% endif %} ">
       <div class="box-header with-border">
-        <h3 class="box-title">Cadastro médico</h3>
+        <h3 class="box-title">Editar médico</h3>
       </div>
       <div class="row">
 
-        <form role="form" method="post" action="/medico/register">
+        <form role="form" method="post" action="/medico/editar">
           <div class="col-md-4">
             <div class="box-body">
               <div class="form-group  {% if erros["nome"] %} has-error {% endif %} ">
@@ -81,24 +78,17 @@
                   </div>
                   <div class="form-group">
                     <label>Estado</label>
-                    <select name="estado" class="form-control select2" style="width: 100%;">
-                        <option>Selecione</option>
+                    <select name="estado" value="" class="form-control select2" style="width: 100%;">
+                        <option>{{dados['estado']}}</option>
                         {% for estado in estados %}
                             <option onclick="teste()" id="estados">{{estado.nome}}</option>
                         {% endfor %}
                   </select>
                   </div>
-                  <script>
-                    var t = document.getElementById("estados").value;
-
-                    function teste() {
-                      alert(t);
-                    }
-                  </script>
                   <div class="form-group">
                     <label>Cidade</label>
                     <select name="cidade" class="form-control select2 " style="width: 100%;">
-                      <option >Selecione</option>
+                      <option >{{dados['cidade']}}</option>
                       {% for cidade in cidades %}
                           <option >{{cidade.nome}}</option>
                       {% endfor %}
@@ -112,7 +102,7 @@
                     <label for="exampleInputPassword1">Nacionalidade</label>
                     <input value="{{dados['nacionalidade']}}" name="nacionalidade" type="text" class="form-control" id="exampleInputPassword1" placeholder="Nacionalidade">
                   </div>
-                  <div class="form-group {% if erros["data"] %} has-error {% endif %}">
+                  <div class="form-group {% if erros["data_nascimento"] %} has-error {% endif %}">
                     <label>{% if erros["data"] %} <i class="fa fa-times-circle-o"></i>{% endif %} Data Nascimento <b style="color: red">*</b></label>
 
                     <div class="input-group">
@@ -120,9 +110,9 @@
                         <i class="fa fa-calendar"></i>
 
                       </div>
-                      <input value="{{dados['data']}}" name="data" type="text" class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask>
+                      <input value="{{dados['data_nascimento']}}" name="data_nascimento" type="text" class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask>
                     </div>
-                    {% if erros["data"] %} <span class="help-block">Data é obrigatório</span> {% endif %}
+                    {% if erros["data_nascimento"] %} <span class="help-block">Data é obrigatório</span> {% endif %}
                   </div>
                 </div>
               </div>

@@ -55,16 +55,40 @@
       </td>
       <td>
         <div class="row linha4">
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-defaultc{{medico.crm}}">Visualizar <i class="fa fa-eye"></i> </button>
+          <button title="Visualizar"  type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-defaultc{{medico.crm}}">Visualizar <i class="fa fa-eye"></i> </button>
         </div>
       </td>
       <td>
         <div class="row linha4">
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-defaultv{{medico.crm}}"> <i class="fa fa-eye"></i> </button>
-          <a href="/medicos/editar/?dados={{medico.crm}}" class="btn btn-success"role="button"><i class="fa fa-edit"></i> </i></a>
-          <button type="button" class="btn btn-danger"><i class="fa fa-close"></i> </button>
+          <button title="Visualizar" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-defaultv{{medico.crm}}"> <i class="fa fa-eye"></i> </button>
+          <a title="Editar" href="/medicos/editar/?dados={{medico.crm}}" class="btn btn-success"role="button"><i class="fa fa-edit"></i> </i></a>
+          <button title="Excluir" type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-defaulta{{medico.crm}}"><i class="fa fa-close"></i> </button>
         </div>
       </td>
+
+       <!-- /.apagar -->
+       <div class="modal fade" id="modal-defaulta{{medico.crm}}">
+        <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="alert alert-danger alert-dismissible modalre">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <h4><i class="icon fa fa-ban"></i> Atenção</h4>
+              </div>  
+              <div class="panel-body">
+              <h4> Ao confirma a exclução, você irá apagar totalmente os dados do médico: <strong>{{medico.nome}}</strong></h4>
+              <br>
+            </div>
+            <div class="modal-footer" style="background: white">
+              <button type="button" class="btn btn-primary pull-left" data-dismiss="modal">Cancelar</button>
+              <a href="/medicos/apagar/?dados={{medico.crm}}" class="btn btn-danger"role="button">Deletar <i class="fa fa-close"></i> </i></a>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+      <!-- /.apagar -->
+
       <div class="modal fade bs-example-modal-sm " tabindex="-1" id="modal-default{{medico.crm}}">
         <div class="modal-dialog  modal-sm">
           <div class="modal-content">
@@ -300,14 +324,6 @@
       </div>
 
       <!-- fim model ver -->
-
-
-
-
-
-
-
-
 
     </tr>
     {% endfor %}
