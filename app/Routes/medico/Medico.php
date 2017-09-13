@@ -55,6 +55,19 @@ class Medico{
             }
         });
 
+        $this->klein->respond('GET', '/medicos/editar', function ($request, $response, $service) {
+            
+            if($_GET['dados']){
+                $medicoList = new \App\Controllers\medico\MedicoList();
+                echo $this->twig->getTwig()->render('medico\editar.html', array(
+                    "dados" => $medicoList->getMedicos()
+                ));
+            }else{
+                $response->redirect('/medicos');
+            }
+          
+        });
+
         $this->klein->respond('GET', '/medicos', function ($request, $response, $service) {
             
             $medicoList = new \App\Controllers\medico\MedicoList();
