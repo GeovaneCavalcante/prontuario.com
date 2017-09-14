@@ -88,7 +88,7 @@ class Medico{
         $this->klein->respond('POST', '/medico/editar', function ($request, $response, $service) {
             
             $con = new \App\Controllers\medico\Medico($_POST);
-            if($con->Validacao()){
+            if($con->Validacao() and $con->verificarUpdate()){
 
                 $endereco = new \App\Controllers\core\Endereco();
                 $esp = new \App\Controllers\core\Especialidades();

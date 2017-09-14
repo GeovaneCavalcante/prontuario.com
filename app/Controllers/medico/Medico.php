@@ -110,6 +110,9 @@ class Medico{
         if ($qtd > 1){
             $erros['rg'] = true;
         }
+
+        var_dump($qtd);
+        die;
         return $erros;
        
     }
@@ -159,6 +162,10 @@ class Medico{
     }
 
     public function updateMedico(){
+
+        if($this->post['especialidades']){
+            $this->modelMedico->updateEspecialidades($this->post);
+        }
 
         $post = $this->removeMascara($this->post);
         $result = $this->modelMedico->updateMedico($post);

@@ -57,6 +57,27 @@ class Medico{
 
     }
 
+    public function updateEspecialidades($dados){
+        
+        if ($dados['especialidades']){
+            $medico = new \App\Models\core\Especialidades();
+            $medico->destroiEspecialidades($dados['crm']);
+            foreach ($dados['especialidades'] as $value){ 
+            
+                $especialidade = $medico->getEspecialidade($value);
+                $sql = "
+                    INSERT INTO especialidades_med 
+                    (nome, crm_medico, id_especialidades)
+                    VALUES 
+                    ('$value', '$dados[crm]', '$especialidade[id]')
+                ";
+                $this->connect->getConnection()->query($sql);
+            }
+        }
+
+    }
+
+
     public function getMedicos(){
         
         $sql = "SELECT * FROM medicos";
