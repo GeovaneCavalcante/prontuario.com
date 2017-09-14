@@ -72,7 +72,8 @@ class Medico{
                             "dados" => $medicoList->getMedico($_GET['dados']),
                             "estados" => $endereco->getEstados(),
                             "cidades" => $endereco->getCidades(),
-                            "especialidades" => $esp->getEspecialidades()
+                            "especialidades" => $esp->getEspecialidades(),
+                            "get" => $_GET['dados']
                         ));
                     }
                 }else{

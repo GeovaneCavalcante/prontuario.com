@@ -116,25 +116,20 @@ class Medico{
 
 
     public function updateMedico($dados){
-        $sq = "
-            UPDATE medicos
-           SET crm = '$dados[crm]'
-            WHERE crm = '$dados[crm]'
-        "; 
-        $crm =  $dados['crm'];
+      
         $sql = "
         UPDATE `mydb`.`medicos` SET 
-         `nome`='$dados[nome]', `endereco`='$dados[endereco]',
+        `crm`='$dados[crm]', `nome`='$dados[nome]', `endereco`='$dados[endereco]',
         `bairro`='$dados[bairro]', `cidade`='$dados[cidade]', `estado`='$dados[estado]', 
         `cep`='$dados[cep]', `complemento`='$dados[complemento]', `cpf`='$dados[cpf]', `rg`='$dados[rg]', 
         `data_nascimento`='$dados[data_nascimento]', `naturalidade`='$dados[naturalidade]', 
         `nacionalidade`='$dados[nacionalidade]',
          `email`='$dados[email]', `telefone`= '$dados[telefone]', 
-         `celular`= '$dados[celular]', `trabalho`= '$dados[trabalho]' WHERE `crm`= '$dados[crm]';
+         `celular`= '$dados[celular]', `trabalho`= '$dados[trabalho]' WHERE `crm`= '$dados[get]';
         
         ";
       
-        if($this->connect->getConnection()->query($sql)==true and $this->connect->getConnection()->query($sq)==true){
+        if($this->connect->getConnection()->query($sql)==true){
             echo "Atualizado com sucesso" . $this->connect->getConnection()->error;
             return ["status" => 200, "resultado" => "Atualizado com sucesso"];
         }else{

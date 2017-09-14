@@ -18,4 +18,8 @@ class Especialidades{
             return "Erro 404 nada encontrado"; 
         }
     }
+
+    public updateEspecialidade(){
+        
+    }
 }
