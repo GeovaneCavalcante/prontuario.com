@@ -80,7 +80,8 @@ class Medico{
 
     public function getMedicos(){
         
-        $sql = "SELECT * FROM medicos";
+        $sql = "SELECT * FROM medicos order by nome asc
+        ";
         $result = $this->connect->getConnection()->query($sql);
 
         if (!$result){

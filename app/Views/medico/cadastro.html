@@ -3,7 +3,7 @@
   <title>Prontuário | Cadastro</title>
 {% endblock %} 
 {% block li %}
-<li class="active"><a href="http://prontuario.dev/medico/cadastro"><i class="fa fa-user-plus"></i> Cadastro</a></li>
+<li class="active"><a href="http://prontuario.dev/medicos/cadastro"><i class="fa fa-user-plus"></i> Cadastro</a></li>
 <li ><a href="http://prontuario.dev/medicos"><i class="fa fa-edit"></i> Lista médica</a></li>
 {% endblock %}
 {% block contentheader %}
@@ -36,7 +36,7 @@
       </div>
       <div class="row">
 
-        <form role="form" method="post" action="/medico/register">
+        <form role="form" method="post" action="/medicos/register">
           <div class="col-md-4">
             <div class="box-body">
               <div class="form-group  {% if erros["nome"] %} has-error {% endif %} ">
@@ -82,27 +82,17 @@
                   </div>
                   <div class="form-group">
                     <label>Estado</label>
-                    <select name="estado" class="form-control select2" style="width: 100%;">
+                    <select onchange="showHint(this.value)" name="estado" class="form-control select2" style="width: 100%;">
                         <option>Selecione</option>
                         {% for estado in estados %}
-                            <option onclick="teste()" id="estados">{{estado.nome}}</option>
+                            <option value="{{estado.Uf}}">{{estado.Nome}}</option>
                         {% endfor %}
                   </select>
                   </div>
-                  <script>
-                    var t = document.getElementById("estados").value;
-
-                    function teste() {
-                      alert(t);
-                    }
-                  </script>
                   <div class="form-group">
                     <label>Cidade</label>
-                    <select name="cidade" class="form-control select2 " style="width: 100%;">
+                    <select id="txtHint" name="cidade" disabled="true" class="form-control select2 " style="width: 100%;">
                       <option >Selecione</option>
-                      {% for cidade in cidades %}
-                          <option >{{cidade.nome}}</option>
-                      {% endfor %}
                   </select>
                   </div>
                   <div class="form-group">

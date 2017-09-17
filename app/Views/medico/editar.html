@@ -3,7 +3,7 @@
   <title>Prontuário | Editar</title>
 {% endblock %} 
 {% block li %}
-<li><a href="http://prontuario.dev/medico/cadastro"><i class="fa fa-user-plus"></i> Cadastro</a></li>
+<li><a href="http://prontuario.dev/medicos/cadastro"><i class="fa fa-user-plus"></i> Cadastro</a></li>
 <li ><a href="http://prontuario.dev/medicos"><i class="fa fa-edit"></i> Lista médica</a></li>
 {% endblock %}
 {% block contentheader %}
@@ -78,21 +78,19 @@
                   </div>
                   <div class="form-group">
                     <label>Estado</label>
-                    <select name="estado" value="" class="form-control select2" style="width: 100%;">
+                    <select onchange="showHint(this.value)"  name="estado" value="" class="form-control select2" style="width: 100%;">
                         <option>{{dados['estado']}}</option>
                         {% for estado in estados %}
-                            <option onclick="teste()" id="estados">{{estado.nome}}</option>
+                            <option value="{{estado.Uf}}">{{estado.Nome}}</option>
                         {% endfor %}
                   </select>
                   </div>
                   <div class="form-group">
                     <label>Cidade</label>
-                    <select name="cidade" class="form-control select2 " style="width: 100%;">
-                      <option >{{dados['cidade']}}</option>
-                      {% for cidade in cidades %}
-                          <option >{{cidade.nome}}</option>
-                      {% endfor %}
+                    <select id="txtHint" name="cidade" class="form-control select2 " style="width: 100%;">
+                      <option  >{{dados['cidade']}}</option>
                   </select>
+                  
                   </div>
                   <div class="form-group">
                     <label for="exampleInputPassword1">Naturalidade</label>

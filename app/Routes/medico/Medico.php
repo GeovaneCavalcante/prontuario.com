@@ -10,7 +10,7 @@ class Medico{
     
     public function start(){
 
-        $this->klein->respond('/medico/cadastro', function ($request, $response, $service) {
+        $this->klein->respond('/medicos/cadastro', function ($request, $response, $service) {
             
             if ($_SESSION['status'] == true){
                     $endereco = new \App\Controllers\core\Endereco();
@@ -28,7 +28,7 @@ class Medico{
         });
 
 
-        $this->klein->respond('POST', '/medico/register', function ($request, $response, $service) {
+        $this->klein->respond('POST', '/medicos/register', function ($request, $response, $service) {
             $con = new \App\Controllers\medico\Medico($_POST);
             if($con->Validacao() or $con->verificar()){
 
@@ -88,7 +88,7 @@ class Medico{
         $this->klein->respond('POST', '/medico/editar', function ($request, $response, $service) {
             
             $con = new \App\Controllers\medico\Medico($_POST);
-            if($con->Validacao() and $con->verificarUpdate()){
+            if($con->verificarUpdate() or $con->Validacao()){
 
                 $endereco = new \App\Controllers\core\Endereco();
                 $esp = new \App\Controllers\core\Especialidades();

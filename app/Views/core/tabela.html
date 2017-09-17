@@ -1,49 +1,4 @@
-{% extends "base.html" %} {% block title %}
-<title>Prontuário | Lista</title>{% endblock %} {% block contentheader %}
-<h1>
-        Área Médica
-        <small>Lista médica</small>
-    </h1>
-<ol class="breadcrumb">
-  <li><a href="#"><i class="fa fa-user-plus"></i>Médicos</a></li>
-  <li class="active">Lista médica</li>
-</ol>
-{% endblock %} 
-{% block li %}
-  <li><a href="http://prontuario.dev/medicos/cadastro"><i class="fa fa-user-plus"></i> Cadastro</a></li>
-  <li class="active"><a href="http://prontuario.dev/medicos"><i class="fa fa-edit"></i> Lista médica</a></li>
-{% endblock %}
-{% block content %}
-<div class="box">
-  <div class="box-header">
-    <h3 class="box-title">Médicos</h3>
-  </div>
-  <!-- /.box-header -->
-  <div class="box-body">
-    <table class="table table-bordered table-striped" >
-      <div class="row linha">
-        <div class="col-sm-3">
-          <div class="input-group">
-            <label for="">Pesquisa</label>
-            <input onkeyup="showResult(this.value)"  type="text" class="form-control" placeholder="Digite o nome">
-           
-          </div>
-        </div>
-        <div class="col-sm-9">
-        </div>
-      </div>
-  </div>
-  <thead>
-    <tr>
-      <th>Nome</th>
-      <th>CRM</th>
-      <th>Especialidades</th>
-      <th>Contatos</th>
-      <th>Ações</th>
-    </tr>
-  </thead>
-  <tbody id="livesearch">
-    {% for medico in dados%}
+
     <tr>
       <td>{{medico.nome}}</td>
       <td>{{medico.crm}}</td>
@@ -325,41 +280,4 @@
       <!-- fim model ver -->
 
     </tr>
-    {% endfor %}
-  </tbody>
-  <tfoot>
-    <tr>
-      <th>Nome</th>
-      <th>CRM</th>
-      <th>Especialidades</th>
-      <th>Contatos</th>
-      <th>Ações</th>
-    </tr>
-  </tfoot>
-  </table>
-  <div class="row linha2">
-    <div class="col-sm-12">
-      <nav aria-label="...">
-        <ul class="pagination">
-          <li class="page-item disabled">
-            <span class="page-link">Antes</span>
-          </li>
-          <li class="page-item"><a class="page-link" href="#">1</a></li>
-          <li class="page-item active">
-            <span class="page-link">
-                            2
-            <span class="sr-only">(current)</span>
-            </span>
-          </li>
-          <li class="page-item"><a class="page-link" href="#">3</a></li>
-          <li class="page-item">
-            <a class="page-link" href="#">Próximo</a>
-          </li>
-        </ul>
-      </nav>
-    </div>
-  </div>
-</div>
-<!-- /.box-body -->
-</div>
-{% endblock %}
+ 

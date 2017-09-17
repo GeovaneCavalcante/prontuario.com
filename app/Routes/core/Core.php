@@ -22,6 +22,51 @@ class Core{
             }
             
         });
+
+        $this->klein->respond('GET', '/teste', function ($request, $response, $service) {
+            $en = new \App\Models\core\Endereco();
+            echo $this->twig->getTwig()->render('index.html', array(
+                "estados" => $en->getEstados()["resultado"]
+            ) );
+            
+        });
+
+        $this->klein->respond('GET', '/te', function ($request, $response, $service) {
+            
+            $medicoList = new \App\Controllers\medico\MedicoList();
+            $medicos = $medicoList->getMedicos();
+            $arr1 = str_split(strtolower($_GET["q"]));
+            $pattern = '/' . strtolower($_GET["q"]). '/';
+            $medico = $medicos[1];
+
+            $resultado = [];
+            $status;
+            $i = 0;
+
+            foreach ($medicos as $medico){
+                if (preg_match($pattern, strtolower($medico["nome"]))) {
+                    $resultado[$i] = $medico;   
+                    $i++; 
+                }
+            }
+            foreach ($resultado as $medico){
+                echo $this->twig->getTwig()->render('core/tabela.html', array(
+                     "medico" => $medico
+                ));
+            }   
+        });
+
+        $this->klein->respond('GET', '/medicos/te', function ($request, $response, $service) {
+
+            $en = new \App\Models\core\Endereco();
+            $cidade = $en->getCidades()['resultado'];
+            foreach ($cidade as $city){
+                if($city["Uf"] == $_GET["dados"]){
+                    echo "<option  value=".$city["Nome"].">" . $city['Nome'] ."</option>";
+                }
+            }
+              
+        });
     }
 
     public function error(){

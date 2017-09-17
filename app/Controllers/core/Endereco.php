@@ -11,8 +11,7 @@ class Endereco{
     public function __construct(){
         $endereco = new \App\Models\core\Endereco();
         $this->estados = $endereco->getEstados();
-        $this->cidades = $endereco->getCidades();
-        $this->paises = $endereco->getPais();                
+        $this->cidades = $endereco->getCidades();             
     }
 
     public function getEstados(){
@@ -26,14 +25,6 @@ class Endereco{
     public function getCidades(){
         if ($this->cidades['status'] == 200){
             return $this->cidades['resultado'];
-        }else{
-            return "error";
-        }
-    }
-
-    public function getPais(){
-        if ($this->paises['status'] == 200){
-            return $this->paises['resultado'];
         }else{
             return "error";
         }

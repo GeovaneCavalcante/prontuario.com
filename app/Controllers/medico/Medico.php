@@ -64,6 +64,7 @@ class Medico{
     }
 
     public function verificarUpdate(){
+
         $erros = [];
         
         $post = $this->removeMascara($this->post);
@@ -83,9 +84,9 @@ class Medico{
 
         $post = $this->removeMascara($this->post);
         $crm = $post['crm'];
-        $sql = "select rg from medicos where crm = $crm";
+        $sql = "select crm from medicos where crm = '$crm'";
         $result = $this->connect->getConnection()->query($sql); 
-
+        
         $qtd = 0;
     
         while ($dados2 = mysqli_fetch_assoc($result)){
@@ -110,9 +111,8 @@ class Medico{
         if ($qtd > 1){
             $erros['rg'] = true;
         }
+       
 
-        var_dump($qtd);
-        die;
         return $erros;
        
     }
