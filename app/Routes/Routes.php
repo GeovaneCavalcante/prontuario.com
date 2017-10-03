@@ -14,13 +14,13 @@ class Routes {
         $this->twig = new Twig();
         session_start();
     }
-    
+
     public function start(){
 
         /*Login e autenticação*/
         $login = new \App\Routes\account\Login($this->klein, $this->twig);
         $login->start();
-       
+
         /*Home da aplicação*/
         $core = new \App\Routes\core\Core($this->klein, $this->twig);
         $core->start();
@@ -30,7 +30,7 @@ class Routes {
         $core->start();
 
         $this->klein->dispatch();
-        
+
     }
 
 }

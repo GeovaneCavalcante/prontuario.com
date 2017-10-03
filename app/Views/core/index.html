@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block title %}
+  <title>Prontuário</title>
+{% endblock %}
+{% block li %}
+  <li class="active">
+    <a href="http://prontuario.dev/medicos/cadastro">
+      <i class="fa fa-user-plus"></i>
+      Cadastro</a>
+  </li>
+  <li >
+    <a href="http://prontuario.dev/medicos">
+      <i class="fa fa-edit"></i>
+      Lista médica</a>
+  </li>
+{% endblock %}
+{% block contentheader %}
+<br>
+  <h1 class="" id="titulo1">
+  Bem-vindo
+  </h1>
+  <ol class="breadcrumb">
+    <li>
+      <a href="#">
+        <i class="fa fa-user-plus"></i>Prontuário</a>
+    </li>
+    <li class="active">Médico</li>
+  </ol>
+{% endblock %}
+
+{% block content %}
+<div class="row ind">
+  <div class="col-md-2">
+
+  </div>
+  <div class="col-md-4">
+    <div class="box-body">
+      <div class="small-box bg-aqua">
+        <div class="inner">
+          <h3>Área Médica</h3>
+
+          <p>Toda informações médicas</p>
+        </div>
+        <div class="icon">
+          <i class="fa fa-heart"></i>
+        </div>
+        <a href="/medicos" class="small-box-footer">Acompanhe
+          <i class="fa fa-arrow-circle-right"></i>
+        </a>
+      </div>
+
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="box-body">
+      <div class="small-box bg-green">
+        <div class="inner">
+          <h3>Pacientes</h3>
+
+          <p>Informações sobre pacientes</p>
+        </div>
+        <div class="icon">
+          <i class="fa fa-child"></i>
+        </div>
+        <a href="#" class="small-box-footer">Acompanhe
+          <i class="fa fa-arrow-circle-right"></i>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endblock %}

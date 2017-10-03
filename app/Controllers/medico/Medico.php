@@ -27,23 +27,23 @@ class Medico{
             return $v->errors();
         }
     }
-    
+
     public function verificar(){
         $erros = [];
         $post = $this->removeMascara($this->post);
 
         $cpf = $post['cpf'];
         $sql = "select cpf from medicos where cpf = '$cpf'";
-        $result = $this->connect->getConnection()->query($sql); 
+        $result = $this->connect->getConnection()->query($sql);
         $resultado = mysqli_fetch_assoc($result);
-       
+
         if ($resultado){
             $erros['cpf'] = true;
         }
 
         $crm = $post['crm'];
         $sql = "select crm from medicos where crm = '$crm'";
-        $result = $this->connect->getConnection()->query($sql); 
+        $result = $this->connect->getConnection()->query($sql);
         $resultado = mysqli_fetch_assoc($result);
 
         if ($resultado){
@@ -52,25 +52,25 @@ class Medico{
 
         $rg = $post['rg'];
         $sql = "select rg from medicos where rg = '$rg'";
-        $result = $this->connect->getConnection()->query($sql); 
+        $result = $this->connect->getConnection()->query($sql);
         $resultado = mysqli_fetch_assoc($result);
 
         if ($resultado){
             $erros['rg'] = true;
         }
-        
+
         return $erros;
-       
+
     }
 
     public function verificarUpdate(){
 
         $erros = [];
-        
+
         $post = $this->removeMascara($this->post);
         $cpf = $post['cpf'];
         $sql = "select cpf from medicos where cpf = $cpf";
-        $result = $this->connect->getConnection()->query($sql); 
+        $result = $this->connect->getConnection()->query($sql);
 
         $qtd = 0;
 
@@ -85,10 +85,10 @@ class Medico{
         $post = $this->removeMascara($this->post);
         $crm = $post['crm'];
         $sql = "select crm from medicos where crm = '$crm'";
-        $result = $this->connect->getConnection()->query($sql); 
-        
+        $result = $this->connect->getConnection()->query($sql);
+
         $qtd = 0;
-    
+
         while ($dados2 = mysqli_fetch_assoc($result)){
             $qtd++;
         }
@@ -100,10 +100,10 @@ class Medico{
         $post = $this->removeMascara($this->post);
         $rg = $post['rg'];
         $sql = "select crm from medicos where rg = $rg";
-        $result = $this->connect->getConnection()->query($sql); 
+        $result = $this->connect->getConnection()->query($sql);
 
         $qtd = 0;
-     
+
         while ($dados2 = mysqli_fetch_assoc($result)){
             $qtd++;
         }
@@ -111,13 +111,13 @@ class Medico{
         if ($qtd > 1){
             $erros['rg'] = true;
         }
-       
+
 
         return $erros;
-       
+
     }
 
-    
+
 
     public function insertMedico(){
 
@@ -134,11 +134,11 @@ class Medico{
 
     private function removeMascara($post){
 
-        $post['cpf'] = preg_replace("/\D+/", "", $post['cpf']); 
+        $post['cpf'] = preg_replace("/\D+/", "", $post['cpf']);
         $post['cep'] = preg_replace("/\D+/", "", $post['cep']);
         $post['telefone'] = preg_replace("/\D+/", "", $post['telefone']);
         $post['celular'] = preg_replace("/\D+/", "", $post['celular']);
-        $post['trabalho'] = preg_replace("/\D+/", "", $post['trabalho']); 
+        $post['trabalho'] = preg_replace("/\D+/", "", $post['trabalho']);
         $var = $post['data_nascimento'];
         $date = str_replace('/', '-', $var);
         $post['data_nascimento'] = date('Y-m-d', strtotime($date));
@@ -152,7 +152,7 @@ class Medico{
 
         return $post;
         /*
-        
+
         echo $post['cep'] . " cep <br>";
         echo $post['celular'] . " celular <br>";
         echo $post['telefone'] . " telefone <br>";

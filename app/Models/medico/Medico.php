@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Models\medico;
 
@@ -8,17 +8,17 @@ class Medico{
 
     public function __construct(){
         $this->connect = new \Config\Connect();
-    } 
+    }
 
     public function insertMedico($dados){
-    
+
         $sql = "
-            INSERT INTO medicos 
+            INSERT INTO medicos
             (crm, nome, endereco, bairro,
             cidade, estado, cep, complemento, cpf, rg,
             data_nascimento, naturalidade, nacionalidade,
             email, telefone, celular, trabalho)
-            VALUES 
+            VALUES
             ('$dados[crm]', '$dados[nome]', '$dados[endereco]', '$dados[endereco]',
             '$dados[cidade]', '$dados[estado]', '$dados[cep]', '$dados[complemento]',
             '$dados[cpf]', '$dados[rg]', '$dados[data_nascimento]', '$dados[naturalidade]',
@@ -26,29 +26,29 @@ class Medico{
             '$dados[trabalho]'
             )
         ";
-        
+
         if ($this->connect->getConnection()->query($sql) == true){
             $this->insertEspecialidades($dados);
             echo "Criado com sucesso";
             return ["status" => 200, "resultado" => "Criado com sucesso"];;
         }else{
-            echo "Falha ao criar registro " . mysqli_error($this->connect->getConnection()); 
+            echo "Falha ao criar registro " . mysqli_error($this->connect->getConnection());
             $error = $this->connect->getConnection()->error;
             return ["status" => 405, "resultado" => "Falha ao criar registro: $error"];;
         }
     }
 
     public function insertEspecialidades($dados){
-        
+
         if ($dados['especialidades']){
             foreach ($dados['especialidades'] as $value){
                 $medico = new \App\Models\core\Especialidades();
-            
+
                 $especialidade = $medico->getEspecialidade($value);
                 $sql = "
-                    INSERT INTO especialidades_med 
+                    INSERT INTO especialidades_med
                     (nome, crm_medico, id_especialidades)
-                    VALUES 
+                    VALUES
                     ('$value', '$dados[crm]', '$especialidade[id]')
                 ";
                 $this->connect->getConnection()->query($sql);
@@ -58,17 +58,16 @@ class Medico{
     }
 
     public function updateEspecialidades($dados){
-        
+
         if ($dados['especialidades']){
             $medico = new \App\Models\core\Especialidades();
             $medico->destroiEspecialidades($dados['crm']);
-            foreach ($dados['especialidades'] as $value){ 
-            
+            foreach ($dados['especialidades'] as $value){
                 $especialidade = $medico->getEspecialidade($value);
                 $sql = "
-                    INSERT INTO especialidades_med 
+                    INSERT INTO especialidades_med
                     (nome, crm_medico, id_especialidades)
-                    VALUES 
+                    VALUES
                     ('$value', '$dados[crm]', '$especialidade[id]')
                 ";
                 $this->connect->getConnection()->query($sql);
@@ -79,7 +78,7 @@ class Medico{
 
 
     public function getMedicos(){
-        
+
         $sql = "SELECT * FROM medicos order by nome asc
         ";
         $result = $this->connect->getConnection()->query($sql);
@@ -108,13 +107,13 @@ class Medico{
 
 
     public function getMedico($crm){
-        
+
         $sql = "select * from medicos where crm = $crm";
-        $result = $this->connect->getConnection()->query($sql); 
+        $result = $this->connect->getConnection()->query($sql);
         $resultado = mysqli_fetch_assoc($result);
 
         if($resultado){
-            
+
             $sql2 = "SELECT * FROM especialidades_med WHERE crm_medico = '$resultado[crm]'";
             $result2 = $this->connect->getConnection()->query($sql2);
             $j = 0;
@@ -138,28 +137,28 @@ class Medico{
 
 
     public function updateMedico($dados){
-      
+
         $sql = "
-        UPDATE `mydb`.`medicos` SET 
+        UPDATE `mydb`.`medicos` SET
         `crm`='$dados[crm]', `nome`='$dados[nome]', `endereco`='$dados[endereco]',
-        `bairro`='$dados[bairro]', `cidade`='$dados[cidade]', `estado`='$dados[estado]', 
-        `cep`='$dados[cep]', `complemento`='$dados[complemento]', `cpf`='$dados[cpf]', `rg`='$dados[rg]', 
-        `data_nascimento`='$dados[data_nascimento]', `naturalidade`='$dados[naturalidade]', 
+        `bairro`='$dados[bairro]', `cidade`='$dados[cidade]', `estado`='$dados[estado]',
+        `cep`='$dados[cep]', `complemento`='$dados[complemento]', `cpf`='$dados[cpf]', `rg`='$dados[rg]',
+        `data_nascimento`='$dados[data_nascimento]', `naturalidade`='$dados[naturalidade]',
         `nacionalidade`='$dados[nacionalidade]',
-         `email`='$dados[email]', `telefone`= '$dados[telefone]', 
+         `email`='$dados[email]', `telefone`= '$dados[telefone]',
          `celular`= '$dados[celular]', `trabalho`= '$dados[trabalho]' WHERE `crm`= '$dados[get]';
-        
+
         ";
-      
+
         if($this->connect->getConnection()->query($sql)==true){
             echo "Atualizado com sucesso" . $this->connect->getConnection()->error;
             return ["status" => 200, "resultado" => "Atualizado com sucesso"];
         }else{
-            
+
             $error = $this->connect->getConnection()->error;
             echo "Falha ao criar registro" . $error;
             return ["status" => 405, "resultado" => "Falha ao atualizar registro:  $error "];
-        }        
+        }
     }
 
     function deletaMedico($crm){

@@ -18,7 +18,7 @@
     margin: 0px;
     margin-bottom: 1%;
     margin-top: 0%;
-     
+
 }
 .modalborda{
     border-radius: 5px 5px 5px 5px;
@@ -26,4 +26,14 @@
 .modalre{
     border-radius: 0;
      border: solid inherit 0px;
+}
+
+.ind{
+  margin-top: 2%;
+}
+#titulo1{
+  text-align: center;
+  font-weight: 900;
+  font-size: 400%;
+  color: #565555;
 }

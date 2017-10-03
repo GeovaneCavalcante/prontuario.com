@@ -7,11 +7,11 @@ class Medico{
         $this->klein = $Klein;
         $this->twig =  $Twig;
     }
-    
+
     public function start(){
 
         $this->klein->respond('/medicos/cadastro', function ($request, $response, $service) {
-            
+
             if ($_SESSION['status'] == true){
                     $endereco = new \App\Controllers\core\Endereco();
                     $esp = new \App\Controllers\core\Especialidades();
@@ -24,12 +24,13 @@ class Medico{
             }else{
                 $response->redirect('/login');
             }
-            
+
         });
 
 
         $this->klein->respond('POST', '/medicos/register', function ($request, $response, $service) {
             $con = new \App\Controllers\medico\Medico($_POST);
+
             if($con->Validacao() or $con->verificar()){
 
                 $endereco = new \App\Controllers\core\Endereco();
@@ -60,7 +61,7 @@ class Medico{
 
             if ($_SESSION['status'] == true){
                 if($_GET['dados']){
-                    
+
                     $medicoList = new \App\Controllers\medico\MedicoList();
                     $endereco = new \App\Controllers\core\Endereco();
                     $esp = new \App\Controllers\core\Especialidades();
@@ -86,8 +87,9 @@ class Medico{
 
 
         $this->klein->respond('POST', '/medico/editar', function ($request, $response, $service) {
-            
+
             $con = new \App\Controllers\medico\Medico($_POST);
+    
             if($con->verificarUpdate() or $con->Validacao()){
 
                 $endereco = new \App\Controllers\core\Endereco();
@@ -111,11 +113,11 @@ class Medico{
                 }
 
             }
-          
+
         });
 
         $this->klein->respond('GET', '/medicos/apagar', function ($request, $response, $service) {
-            
+
             if ($_SESSION['status'] == true){
                 if($_GET['dados']){
                     $medicoList = new \App\Controllers\medico\MedicoList();
@@ -129,9 +131,9 @@ class Medico{
             }
         });
 
-        
+
         $this->klein->respond('GET', '/medicos', function ($request, $response, $service) {
-            
+
             if ($_SESSION['status'] == true){
                 $medicoList = new \App\Controllers\medico\MedicoList();
                 echo $this->twig->getTwig()->render('medico\list.html', array(
@@ -141,9 +143,9 @@ class Medico{
             }else{
                 $response->redirect('/login');
             }
-          
+
         });
 
-        
+
     }
 }

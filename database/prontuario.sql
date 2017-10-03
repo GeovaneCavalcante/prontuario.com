@@ -25,8 +25,9 @@ CREATE TABLE IF NOT EXISTS root(
     pass varchar(40)
 );
 -- -----------------------------------------------------
+
 CREATE TABLE IF NOT EXISTS `mydb`.`medicos` (
-  `crm` INT NOT NULL,
+  `crm` varchar(100) NOT NULL,
   `nome` VARCHAR(50) NOT NULL,
   `endereco` VARCHAR(200) NULL,
   `bairro` VARCHAR(45) NULL,
@@ -44,6 +45,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`medicos` (
   `celular` VARCHAR(45) NULL,
   `trabalho` VARCHAR(45) NULL,
   `especialidades` VARCHAR(45) NULL,
+  `is_active` bool,
   PRIMARY KEY (`crm`))
 ENGINE = InnoDB;
 

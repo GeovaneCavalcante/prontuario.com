@@ -9,18 +9,18 @@ class Core{
         $this->klein = $Klein;
         $this->twig =  $Twig;
     }
-    
+
     public function start(){
 
         $this->klein->respond('/', function ($request, $response, $service) {
             if ($_SESSION['status'] == true){
-                    echo $this->twig->getTwig()->render('base.html', array(
+                    echo $this->twig->getTwig()->render('core/index.html', array(
                     "user" => $_SESSION,
                 ));
             }else{
                 $response->redirect('/login');
             }
-            
+
         });
 
         $this->klein->respond('GET', '/te', function ($request, $response, $service) {
@@ -37,15 +37,15 @@ class Core{
 
                 foreach ($medicos as $medico){
                     if (preg_match($pattern, strtolower($medico["nome"]))) {
-                        $resultado[$i] = $medico;   
-                        $i++; 
+                        $resultado[$i] = $medico;
+                        $i++;
                     }
                 }
                 foreach ($resultado as $medico){
                     echo $this->twig->getTwig()->render('core/tabela.html', array(
                         "medico" => $medico
                     ));
-                }   
+                }
             }else{
                 $response->redirect('/login');
             }
@@ -63,7 +63,7 @@ class Core{
             }else{
                 $response->redirect('/login');
             }
-              
+
         });
     }
 
