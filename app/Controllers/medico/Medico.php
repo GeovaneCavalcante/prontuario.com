@@ -20,7 +20,6 @@ class Medico{
         $v->rule('required', array(
             'nome', 'cpf', 'rg', 'data_nascimento', 'crm'
         ))->message('{field} é obrigatório');
-
         if($v->validate()) {
             return $v->errors();
         } else {

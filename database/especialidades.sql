@@ -2,10 +2,10 @@ CREATE TABLE especialidades_med(
    crm_medico varchar(100) not null,
    id_especialidades int not null,
    nome VARCHAR(40),
-   PRIMARY KEY(id),
    foreign key(crm_medico) references medicos(crm) ON DELETE CASCADE ON UPDATE CASCADE,
    foreign key(id_especialidades) references especialidades(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
+drop table especialidades_med;
 select * from especialidades_med;
 CREATE TABLE especialidades(
    id int not null,

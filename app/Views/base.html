@@ -161,8 +161,32 @@
                 </ul>
                 {% endblock %}
               </li>
-
           </ul>
+          <li class="treeview">
+            <a href="#">
+              <i class="fa fa-child"></i>
+              <span>Pacientes</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+
+            <ul class="treeview-menu">
+            {% block lipa %}
+              <li>
+                <a href="/pacientes/cadastro">
+                  <i class="fa fa-user-plus"></i>
+                  Cadastro</a>
+              </li>
+              <li>
+                <a href="/pacientes">
+                  <i class="fa fa-edit"></i>
+                  Lista de pacientes</a>
+              </li>
+
+            </ul>
+            {% endblock %}
+          </li>
         </section>
         <!-- /.sidebar -->
       </aside>

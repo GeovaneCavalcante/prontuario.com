@@ -29,6 +29,9 @@ class Routes {
         $core = new \App\Routes\medico\Medico($this->klein, $this->twig);
         $core->start();
 
+        $core = new \App\Routes\paciente\Paciente($this->klein, $this->twig);
+        $core->start();
+
         $this->klein->dispatch();
 
     }

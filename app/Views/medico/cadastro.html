@@ -3,7 +3,7 @@
   <title>Prontuário | Cadastro</title>
 {% endblock %}
 {% block li %}
-  <li>
+  <li class="active">
     <a href="http://prontuario.dev/medicos/cadastro">
       <i class="fa fa-user-plus"></i>
       Cadastro</a>
@@ -57,7 +57,7 @@
           <form role="form" method="post" action="/medicos/register">
             <div class="col-md-4">
               <div class="box-body">
-                <div class="form-group  {% if erros[" nome"] %} has-error {% endif %} ">
+                <div class="form-group  {% if erros["nome"] %} has-error {% endif %} ">
                   <label for="exampleInputEmail1">
                     {% if erros["nome"] %}
                       <i class="fa fa-times-circle-o"></i>
@@ -70,7 +70,7 @@
                     <span class="help-block">Nome é obrigatório</span>
                   {% endif %}
                 </div>
-                <div class="form-group {% if exist[" crm"] %} has-warning {% endif %} {% if erros[" crm"] %} has-error {% endif %}">
+                <div class="form-group {% if exist["crm"] %} has-warning {% endif %} {% if erros["crm"] %} has-error {% endif %}">
                   <label for="exampleInputEmail1">
                     {% if erros["crm"] %}
                       <i class="fa fa-times-circle-o"></i>
@@ -113,7 +113,7 @@
             <div class="box-body">
               <div class="row">
                 <div class="col-md-12">
-                  <div class="form-group {% if exist[" cpf"] %} has-warning {% endif %} {% if erros[" cpf"] %} has-error {% endif %}">
+                  <div class="form-group {% if exist["cpf"] %} has-warning {% endif %} {% if erros["cpf"] %} has-error {% endif %}">
                     <label for="exampleInputEmail1">
                       {% if erros["cpf"] %}
                         <i class="fa fa-times-circle-o"></i>
@@ -156,7 +156,7 @@
                   <label for="exampleInputPassword1">Nacionalidade</label>
                   <input value="{{dados['nacionalidade']}}" name="nacionalidade" type="text" class="form-control" id="exampleInputPassword1" placeholder="Nacionalidade">
                 </div>
-                <div class="form-group {% if erros[" data_nascimento"] %} has-error {% endif %}">
+                <div class="form-group {% if erros["data_nascimento"] %} has-error {% endif %}">
                   <label>
                     {% if erros["data"] %}
                       <i class="fa fa-times-circle-o"></i>
@@ -172,7 +172,7 @@
                     </div>
                     <input value="{{dados['data_nascimento']}}" name="data_nascimento" type="text" class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask>
                   </div>
-                  {% if erros["data"] %}
+                  {% if erros["data_nascimento"] %}
                     <span class="help-block">Data é obrigatório</span>
                   {% endif %}
                 </div>
@@ -184,7 +184,7 @@
           <div class="box-body">
             <div class="row">
               <div class="col-md-12">
-                <div class="form-group {% if exist[" rg"] %} has-warning {% endif %}  {% if erros[" rg"] %} has-error {% endif %}">
+                <div class="form-group {% if exist["rg"] %} has-warning {% endif %}  {% if erros["rg"] %} has-error {% endif %}">
                   <label for="exampleInputEmail1">
                     {% if erros["rg"] %}
                       <i class="fa fa-times-circle-o"></i>
@@ -258,7 +258,7 @@
       <div class="col-md-12">
         <div class="box-footer">
           <button type="submit" class="btn btn-primary">Salvar</button>
-          <button type="submit" class="btn btn-danger">Cancelar</button>
+          <a href="/medicos" class="btn btn-danger">Cancelar</a>
         </div>
       </div>
     </form>

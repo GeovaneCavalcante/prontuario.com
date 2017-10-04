@@ -17,13 +17,13 @@ class Medico{
             (crm, nome, endereco, bairro,
             cidade, estado, cep, complemento, cpf, rg,
             data_nascimento, naturalidade, nacionalidade,
-            email, telefone, celular, trabalho)
+            email, telefone, celular, trabalho, is_active)
             VALUES
             ('$dados[crm]', '$dados[nome]', '$dados[endereco]', '$dados[endereco]',
             '$dados[cidade]', '$dados[estado]', '$dados[cep]', '$dados[complemento]',
             '$dados[cpf]', '$dados[rg]', '$dados[data_nascimento]', '$dados[naturalidade]',
             '$dados[nacionalidade]', '$dados[email]', '$dados[telefone]', '$dados[celular]',
-            '$dados[trabalho]'
+            '$dados[trabalho]', 'ativo'
             )
         ";
 
@@ -87,6 +87,7 @@ class Medico{
             return ["status" => 404, "resultado" => "Nada encontrado"];
         }else{
             $i = 0;
+            $array = [];
             while ($dados = mysqli_fetch_assoc($result)){
 
                 $sql2 = "SELECT * FROM especialidades_med WHERE crm_medico = '$dados[crm]'";
@@ -162,18 +163,20 @@ class Medico{
     }
 
     function deletaMedico($crm){
+      $medico = $this->getMedico($crm);
+      if ($medico['status'] == 200){
         $sql = "
-            DELETE FROM medicos
-            WHERE crm='$crm'
+          UPDATE `mydb`.`medicos` SET
+          `is_active` = 'not_ativo' WHERE `crm`= '$crm';
         ";
-        if ($this->connect->getConnection()->query($sql) == true){
-            echo "Resgistro apado";
-            return ["status" => 200, "resultado" => "Apagado com sucesso"];
-        }else{
-            echo "Erro ao apagar registro";
-            $error = $this->connect->getConnection()->error;
-            return ["status" => 405, "resultado" => "Resgistro não apagado: $error"];
-        }
+
+        $this->connect->getConnection()->query($sql);
+        return ["status" => 200, "resultado" => "Apagado com sucesso"];
+      }else{
+          echo "Erro ao apagar registro";
+          $error = $this->connect->getConnection()->error;
+          return ["status" => 405, "resultado" => "Resgistro não apagado: $error"];
+      }
     }
 
 }

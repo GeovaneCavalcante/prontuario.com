@@ -25,7 +25,8 @@ CREATE TABLE IF NOT EXISTS root(
     pass varchar(40)
 );
 -- -----------------------------------------------------
-
+use mydb;
+drop table medicos;
 CREATE TABLE IF NOT EXISTS `mydb`.`medicos` (
   `crm` varchar(100) NOT NULL,
   `nome` VARCHAR(50) NOT NULL,
@@ -45,34 +46,35 @@ CREATE TABLE IF NOT EXISTS `mydb`.`medicos` (
   `celular` VARCHAR(45) NULL,
   `trabalho` VARCHAR(45) NULL,
   `especialidades` VARCHAR(45) NULL,
-  `is_active` bool,
+  `is_active` varchar(20),
   PRIMARY KEY (`crm`))
 ENGINE = InnoDB;
-
-
 -- -----------------------------------------------------
 -- Table `mydb`.`Paciente`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Paciente` (
-  `CPF` VARCHAR(30) NOT NULL,
-  `Nome_pac` VARCHAR(100) NOT NULL,
-  `Endereco_pac` VARCHAR(250) NULL,
-  `Bairro_pac` VARCHAR(45) NULL,
-  `Cidade_pac` VARCHAR(45) NULL,
-  `Estado_pac` VARCHAR(45) NULL,
-  `CEP_pac` VARCHAR(10) NULL,
-  `Complemento_pac` VARCHAR(50) NULL,
-  `RG_pac` VARCHAR(30) NOT NULL,
-  `DT_nasc_pac` VARCHAR(20) NOT NULL,
-  `Naturalidade_pac` VARCHAR(45) NULL,
-  `Nacionalidade_pac` VARCHAR(45) NULL,
-  `Email_pac` VARCHAR(45) NULL,
-  `Tel_cel` VARCHAR(45) NULL,
-  `Tel_trab` VARCHAR(45) NULL,
-  `Nome_pai` VARCHAR(100) NULL,
-  `Nome_mae` VARCHAR(100) NULL,
-  `Tipo_sangue` VARCHAR(5) NULL,
-  PRIMARY KEY (`CPF`))
+drop table pacientes;
+CREATE TABLE IF NOT EXISTS `mydb`.`pacientes` (
+  `nome` VARCHAR(50) NOT NULL,
+  `endereco` VARCHAR(200) NULL,
+  `bairro` VARCHAR(45) NULL,
+  `cidade` VARCHAR(45) NULL,
+  `estado` VARCHAR(45) NULL,
+  `cep` VARCHAR(10) NULL,
+  `complemento` VARCHAR(100) NULL,
+  `cpf` VARCHAR(30) NOT NULL,
+  `rg` VARCHAR(30) NOT NULL,
+  `data_nascimento` VARCHAR(45) NOT NULL,
+  `naturalidade` VARCHAR(30) NULL,
+  `nacionalidade` VARCHAR(30) NULL,
+  `email` VARCHAR(30) NULL,
+  `telefone` VARCHAR(45) NOT NULL,
+  `celular` VARCHAR(45) NULL,
+  `trabalho` VARCHAR(45) NULL,
+  `nome_pai` VARCHAR(45) NULL,
+	`nome_mae` VARCHAR(45) NULL,
+	`nome_sangue` VARCHAR(45) NULL,
+  `is_active` varchar(20),
+  PRIMARY KEY (`cpf`))
 ENGINE = InnoDB;
 
 
