@@ -46,7 +46,6 @@
   </thead>
   <tbody id="livesearch">
     {% for medico in dados%}
-    {% if medico['is_active']  == 'ativo'%}
     <tr>
       <td>{{medico.nome}}</td>
       <td>{{medico.crm}}</td>
@@ -328,7 +327,6 @@
       <!-- fim model ver -->
 
     </tr>
-    {% endif %}
     {% endfor %}
   </tbody>
   <tfoot>

@@ -15,11 +15,11 @@ class MedicoList{
 
     public function getMedicos(){
         $medicos = $this->modelMedico->getMedicos();
-
+       
         if ($medicos['status'] == 200){
             return $medicos['resultado'];
         }else{
-            echo 'ERRO';
+            echo 'ERROs';
         }
     }
 

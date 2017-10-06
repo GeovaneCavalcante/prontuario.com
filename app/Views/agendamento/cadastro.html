@@ -1,0 +1,202 @@
+{% extends "base.html" %} {% block title %}
+<title>Prontuário | Agendamento</title>
+{% endblock %} {% block li %}
+<li class="active">
+    <a href="http://prontuario.dev/medicos/cadastro">
+        <i class="fa fa-user-plus"></i>
+        Cadastro</a>
+</li>
+<li>
+    <a href="http://prontuario.dev/medicos">
+        <i class="fa fa-edit"></i>
+        Lista médica</a>
+</li>
+{% endblock %} {% block contentheader %}
+<h1>
+    Agendamento
+    <small>Cadastro</small>
+</h1>
+<ol class="breadcrumb">
+    <li>
+        <a href="#">
+            <i class="fa fa-user-plus"></i>Agendamento</a>
+    </li>
+    <li class="active">Cadastro</li>
+</ol>
+{% endblock %} {% block content %} {% if erros %}
+<div class="alert alert-danger alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+    <h4>
+        <i class="icon fa fa-ban"></i>
+        Atenção</h4>
+    Preencha os campos necessários para concluir o cadastro!
+</div>
+{% endif %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-primary {% if erros %} box-danger {% endif %}  {% if exist %} box-warning {% endif %} ">
+            <form action="/agendamentos/register" method="post">
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <div class="form-group {% if erros.data_agendamento %} has-error {% endif %}">
+                                <label>Data
+                                    <b style="color: red">*</b>
+                                </label>
+
+                                <div class="input-group date">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <input {% if form.data_agendamento %} value="{{form.data_agendamento}}" {% endif %} name="data_agendamento" type="text" class="form-control pull-right"
+                                        id="datepicker">
+                                </div>
+                                {% if erros["data_agendamento"] %}
+                                <span class="help-block">Data é obrigatória</span>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="col-sm-2">
+                            <div class="form-group {% if erros.hora_agendamento %} has-error {% endif %}">
+                                <label>Hora
+                                    <b style="color: red">*</b>
+                                </label>
+
+                                <div class="input-group">
+                                    <input {% if form.hora_agendamento %} value="{{form.hora_agendamento}}" {% endif %} name="hora_agendamento" type="text" class="form-control timepicker">
+
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-clock-o"></i>
+                                    </div>
+                                </div>
+                                {% if erros["hora_agendamento"] %}
+                                <span class="help-block">Hora é obrigatória</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group {% if erros.paciente %} has-error {% endif %}">
+                                <label>Paciente
+                                    <b style="color: red">*</b>
+                                </label>
+                                <select name="paciente" class="form-control select2" style="width: 100%;">
+                                    <option></option>
+                                    {% for paciente in dados.pacientes %}
+                                        <option value="{{paciente.cpf}}">{{paciente.nome}}</option>
+                                    {% endfor %}
+                                </select>
+                                {% if erros["paciente"] %}
+                                <span class="help-block">Paciente é obrigatório</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group {% if erros.medico %} has-error {% endif %}">
+                                <label>Médico
+                                    <b style="color: red">*</b>
+                                </label>
+                                <select name="medico" class="form-control select2" style="width: 100%;">
+                                    <option></option>
+                                    {% for medico in dados.medicos %}
+                                    <option value="{{medico.crm}}">{{medico.nome}}</option>
+                                    {% endfor %}
+                                </select>
+                                {% if erros["medico"] %}
+                                <span class="help-block">Médico é obrigatório</span>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <div class="box-footer" style="margin: 0px; padding: 0px">
+                                <button type="submit" class="btn btn-primary">Agendar</button>
+                                <a href="/" class="btn btn-danger">Cancelar</a>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="box ">
+            <div class="box-header with-border">
+                <h3 class="box-title">Todos Agendamentos</h3>
+            </div>
+            <form action="/agendamentos/register" method="post">
+                <div class="box-body">
+
+                    <table class="table table-bordered table-striped" id="example1">
+                        <div class="row linha">
+                            <div class="col-sm-3">
+                                <!--
+                                    <div class="input-group">
+                                      <label for="">Pesquisa</label>
+                                      <input onkeyup="showResult(this.value)"  type="text" class="form-control" placeholder="Digite o nome">
+                          
+                                    </div>
+                                  -->
+                            </div>
+                            <div class="col-sm-9">
+                            </div>
+                        </div>
+                </div>
+                <thead>
+                    <tr>
+                        <th>Paciente</th>
+                        <th>Medico</th>
+                        <th>Data</th>
+                        <th>Hora</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody id="livesearch">
+                    {% for agendamento in agendamentos %} 
+                    <tr>
+                        <td>{{agendamento.nomePaciente}}</td>
+                        <td>{{agendamento.nomeMedico}}</td>
+                        <td>{{agendamento.data_agendamento}}</td>
+                        <td>{{agendamento.hora_agendamento}}</td>
+                        <td>
+                            <div class="row linha4">
+                                <a title="Editar" href="/medicos/editar/?dados={{medico.crm}}" class="btn btn-success" role="button">
+                                    <i class="fa fa-edit"></i>
+                                    </i>
+                                </a>
+                                <button title="Excluir" type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-defaulta{{medico.crm}}">
+                                    <i class="fa fa-close"></i>
+                                </button>
+                            </div>
+                        </td>
+
+                    </tr>
+                {% endfor %}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>Paciente</th>
+                        <th>Medico</th>
+                        <th>Data</th>
+                        <th>Hora</th>
+                    </tr>
+                </tfoot>
+                </table>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+{% endblock %}

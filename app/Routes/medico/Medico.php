@@ -136,6 +136,7 @@ class Medico{
 
             if ($_SESSION['status'] == true){
                 $medicoList = new \App\Controllers\medico\MedicoList();
+                
                 echo $this->twig->getTwig()->render('medico\list.html', array(
                     "user" => $_SESSION,
                     "dados" => $medicoList->getMedicos()

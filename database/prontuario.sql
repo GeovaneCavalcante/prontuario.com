@@ -71,41 +71,25 @@ CREATE TABLE IF NOT EXISTS `mydb`.`pacientes` (
   `celular` VARCHAR(45) NULL,
   `trabalho` VARCHAR(45) NULL,
   `nome_pai` VARCHAR(45) NULL,
-	`nome_mae` VARCHAR(45) NULL,
-	`nome_sangue` VARCHAR(45) NULL,
+  `nome_mae` VARCHAR(45) NULL,
+  `nome_sangue` VARCHAR(45) NULL,
   `is_active` varchar(20),
   PRIMARY KEY (`cpf`))
 ENGINE = InnoDB;
 
-
--- -----------------------------------------------------
--- Table `mydb`.`Agendamento`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Agendamento` (
-  `Cod` INT NOT NULL,
-  `Data_agend` DATE NOT NULL,
-  `Hora_agend` DATETIME NOT NULL,
-  `Paciente_agend` VARCHAR(30) NOT NULL,
-  `Medico_agend` INT NOT NULL,
-  PRIMARY KEY (`Cod`),
-  INDEX `Paciente_agend_idx` (`Paciente_agend` ASC),
-  INDEX `Medico_gend_idx` (`Medico_agend` ASC),
-  CONSTRAINT `Paciente_agend`
-    FOREIGN KEY (`Paciente_agend`)
-    REFERENCES `mydb`.`Paciente` (`CPF`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `Medico_gend`
-    FOREIGN KEY (`Medico_agend`)
-    REFERENCES `mydb`.`Medico` (`CRM`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+drop table agendamentos;
+CREATE TABLE IF NOT EXISTS agendamentos(
+	codigo int auto_increment,
+    data_agendamento varchar(45) not null,
+    hora_agendamento varchar(45) not null,
+    paciente VARCHAR(30) not null,
+    medico varchar(100) NOT NULL,
+    primary key (codigo),
+    foreign key (paciente) references pacientes(cpf),
+    foreign key (medico) references medicos(crm)
+);
 
 
--- -----------------------------------------------------
--- Table `mydb`.`Atendimento`
--- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`Atendimento` (
   `queixa_p` VARCHAR(500) NULL,
   `Hist` VARCHAR(100) NULL,

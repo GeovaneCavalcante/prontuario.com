@@ -41,7 +41,7 @@ class Paciente{
 
     public function getPacientes(){
 
-        $sql = "SELECT * FROM pacientes order by nome asc";
+        $sql = "SELECT * FROM pacientes where is_active = 'ativo'order by nome asc";
         $result = $this->connect->getConnection()->query($sql);
 
         if (!$result){
@@ -60,7 +60,7 @@ class Paciente{
 
     public function getPaciente($cpf){
 
-        $sql = "select * from pacientes where $cpf = $cpf";
+        $sql = "select * from pacientes where cpf = '$cpf' and is_active = 'ativo'";
         $result = $this->connect->getConnection()->query($sql);
         $resultado = mysqli_fetch_assoc($result);
 

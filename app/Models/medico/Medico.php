@@ -79,10 +79,10 @@ class Medico{
 
     public function getMedicos(){
 
-        $sql = "SELECT * FROM medicos order by nome asc
+        $sql = "SELECT * FROM medicos where is_active = 'ativo' order by nome asc
         ";
         $result = $this->connect->getConnection()->query($sql);
-
+    
         if (!$result){
             return ["status" => 404, "resultado" => "Nada encontrado"];
         }else{
@@ -108,11 +108,10 @@ class Medico{
 
 
     public function getMedico($crm){
-
-        $sql = "select * from medicos where crm = $crm";
+       
+        $sql = "select * from medicos where crm = '$crm' and is_active = 'ativo'";
         $result = $this->connect->getConnection()->query($sql);
         $resultado = mysqli_fetch_assoc($result);
-
         if($resultado){
 
             $sql2 = "SELECT * FROM especialidades_med WHERE crm_medico = '$resultado[crm]'";

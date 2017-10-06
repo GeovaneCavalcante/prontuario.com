@@ -25,7 +25,7 @@ class Paciente{
 				});
 
 
-        $this->klein->respond('/pacientes/cadastro', function ($request, $response, $service) {
+        $this->klein->respond('GET', '/pacientes/cadastro', function ($request, $response, $service) {
 
             if ($_SESSION['status'] == true){
                     $endereco = new \App\Controllers\core\Endereco();
@@ -44,6 +44,7 @@ class Paciente{
         $this->klein->respond('POST', '/pacientes/register', function ($request, $response, $service) {
 
             $con = new \App\Controllers\paciente\Paciente($_POST);
+            $endereco = new \App\Controllers\core\Endereco();
             if($con->Validacao() or $con->verificar()){
                 echo $this->twig->getTwig()->render('paciente\cadastro.html', array(
                     "user" => $_SESSION,

@@ -187,6 +187,31 @@
             </ul>
             {% endblock %}
           </li>
+          <li class="treeview">
+            <a href="#">
+              <i class="fa fa-calendar-minus-o"></i>
+              <span>Agendamento</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+
+            <ul class="treeview-menu">
+            {% block lia %}
+              <li>
+                <a href="/agendamentos/cadastro">
+                  <i class="fa fa-user-plus"></i>
+                  Agendamento</a>
+              </li>
+              <li>
+                <a href="/pacientes">
+                  <i class="fa fa-edit"></i>
+                  Lista de agendamentos</a>
+              </li>
+
+            </ul>
+            {% endblock %}
+          </li>
         </section>
         <!-- /.sidebar -->
       </aside>
