@@ -41,4 +41,8 @@ class AgendamentoList{
         }
     }
 
+    public function deletaAgendamento($id){
+        $agendamento = $this->modelAgendamento->deletaAgendamento($id);
+    }
+
 }

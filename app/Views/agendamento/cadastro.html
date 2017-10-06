@@ -23,13 +23,23 @@
     </li>
     <li class="active">Cadastro</li>
 </ol>
-{% endblock %} {% block content %} {% if erros %}
+{% endblock %} {% block content %}
+{% if erros %}
 <div class="alert alert-danger alert-dismissible">
     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
     <h4>
         <i class="icon fa fa-ban"></i>
         Atenção</h4>
     Preencha os campos necessários para concluir o cadastro!
+</div>
+{% endif %}
+{% if agendado == 'ok' %}
+<div class="alert alert-success alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+    <h4>
+        <i class="icon fa fa-check"></i>
+        Agendado</h4>
+    Seu agendamento foi realizado!
 </div>
 {% endif %}
 <div class="row">
@@ -173,13 +183,34 @@
                                     <i class="fa fa-edit"></i>
                                     </i>
                                 </a>
-                                <button title="Excluir" type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-defaulta{{medico.crm}}">
+                                <button title="Excluir" type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-defaulta{{agendamento.codigo}}">
                                     <i class="fa fa-close"></i>
                                 </button>
                             </div>
                         </td>
 
                     </tr>
+                    <div class="modal fade" id="modal-defaulta{{agendamento.codigo}}">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                              <div class="alert alert-danger alert-dismissible modalre">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                <h4><i class="icon fa fa-ban"></i> Atenção</h4>
+                              </div>
+                              <div class="panel-body">
+                              <h4> Você confirma a exclução do agendamento do paciente: <strong>{{agendamento.nomePaciente}}?</strong></h4>
+                              <br>
+                            </div>
+                            <div class="modal-footer" style="background: white">
+                              <button type="button" class="btn btn-primary pull-left" data-dismiss="modal">Cancelar</button>
+                              <a href="/agendamentos/apagar/?id={{agendamento.codigo}}" class="btn btn-danger"role="button">Deletar <i class="fa fa-close"></i> </i></a>
+                            </div>
+                          </div>
+                          <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                      </div>
+                    </div>
                 {% endfor %}
                 </tbody>
                 <tfoot>
@@ -191,8 +222,7 @@
                     </tr>
                 </tfoot>
                 </table>
-
-                </div>
+                
             </form>
         </div>
     </div>

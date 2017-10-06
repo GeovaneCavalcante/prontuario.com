@@ -14,10 +14,10 @@ class Agendamento{
         
         $sql = "
             INSERT INTO agendamentos
-            (data_agendamento, hora_agendamento, paciente, medico)
+            (data_agendamento, hora_agendamento, paciente, medico, is_active)
             VALUES
             ('$dados[data_agendamento]', '$dados[hora_agendamento]', 
-            '$dados[paciente]', '$dados[medico]'
+            '$dados[paciente]', '$dados[medico]', 'ativo'
             )
         ";
 
@@ -32,8 +32,7 @@ class Agendamento{
     }
 
     public function getAgendamentos(){
-        $sql = "SELECT * FROM agendamentos order by data_agendamento asc
-        ";
+        $sql = "SELECT * FROM agendamentos where is_active = 'ativo' order by data_agendamento asc";
         $result = $this->connect->getConnection()->query($sql);
 
         if (!$result){
@@ -43,7 +42,6 @@ class Agendamento{
             $array = [];
             while ($dados = mysqli_fetch_assoc($result)){
 
-                
                 $modelMedico = new \App\Models\medico\Medico();
                 
                 if ($modelMedico->getMedico($dados['medico'])['status'] == 200){
@@ -68,4 +66,33 @@ class Agendamento{
               
     }
 
+    public function getAgendamento($id){
+        $sql = "select * from agendamentos where codigo= '$id' and is_active = 'ativo'";
+
+        $result = $this->connect->getConnection()->query($sql);
+        $resultado = mysqli_fetch_assoc($result);
+
+        if($resultado){
+            return ["status" => 200, "resultado" => $resultado];
+        }else{
+            return ["status" => 404, "resultado" => "Nada encontrado"];
+        }
+    }
+
+
+    public function deletaAgendamento($id){
+        $agendamento = $this->getAgendamento($id);
+        if ($agendamento['status'] == 200){
+          $sql = "
+            UPDATE `mydb`.`agendamentos` SET
+            `is_active` = 'not_ativo' WHERE `codigo`= '$id';
+          ";
+          $this->connect->getConnection()->query($sql);
+          return ["status" => 200, "resultado" => "Apagado com sucesso"];
+        }else{
+            echo "Erro ao apagar registro";
+            $error = $this->connect->getConnection()->error;
+            return ["status" => 405, "resultado" => "Resgistro não apagado: $error"];
+        }
+    }
 }
