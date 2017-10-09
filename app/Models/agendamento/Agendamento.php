@@ -95,4 +95,25 @@ class Agendamento{
             return ["status" => 405, "resultado" => "Resgistro não apagado: $error"];
         }
     }
+
+    public function updateAgendamento($dados){
+        
+        $sql = "
+            UPDATE `mydb`.`agendamentos` SET
+            `data_agendamento`='$dados[data_agendamento]', `hora_agendamento`='$dados[hora_agendamento]',
+            `paciente`='$dados[paciente]', `medico`='$dados[medico]' 
+            WHERE `codigo`= '$dados[get]';
+
+        ";
+
+        if($this->connect->getConnection()->query($sql)==true){
+            echo "Atualizado com sucesso" . $this->connect->getConnection()->error;
+            return ["status" => 200, "resultado" => "Atualizado com sucesso"];
+        }else{
+
+            $error = $this->connect->getConnection()->error;
+            echo "Falha ao criar registro" . $error;
+            return ["status" => 405, "resultado" => "Falha ao atualizar registro:  $error "];
+        }
+    }
 }

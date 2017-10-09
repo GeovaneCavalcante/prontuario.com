@@ -41,6 +41,18 @@ class AgendamentoList{
         }
     }
 
+    public function getAgendamento($cod){
+        $agendamento = $this->modelAgendamento->getAgendamento($cod);
+
+        if ($agendamento['status'] == 200){
+           
+            return $agendamento['resultado'];
+        }else{
+          
+            return 404;
+        }
+    }
+
     public function deletaAgendamento($id){
         $agendamento = $this->modelAgendamento->deletaAgendamento($id);
     }

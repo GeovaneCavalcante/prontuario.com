@@ -1,6 +1,7 @@
 <?php
 namespace App\Controllers\Agendamento;
 
+
 class Agendamento{
 
     private $post;
@@ -28,7 +29,9 @@ class Agendamento{
     }
 
     public function insertAgendamento(){
+
         $result = $this->modelAgendamento->insertAgendamento($this->post);    
+
         if($result['status'] == 200){
             return $result['resultado'];
         }else{
@@ -36,6 +39,17 @@ class Agendamento{
             die;
         }
 
+    }
+
+    public function updateAgendamento(){
+
+        $result = $this->modelAgendamento->updateAgendamento($this->post);
+
+        if ($result['status'] == 200){
+            return 200;
+        }else{
+            return 405;
+        }
     }
 
 

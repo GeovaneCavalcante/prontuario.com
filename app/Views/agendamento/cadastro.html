@@ -44,7 +44,7 @@
 {% endif %}
 <div class="row">
     <div class="col-md-12">
-        <div class="box box-primary {% if erros %} box-danger {% endif %}  {% if exist %} box-warning {% endif %} ">
+        <div class="box box-primary box-warning">
             <form action="/agendamentos/register" method="post">
                 <div class="box-body">
                     <div class="row">
@@ -53,13 +53,14 @@
                                 <label>Data
                                     <b style="color: red">*</b>
                                 </label>
-
+                
                                 <div class="input-group date">
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </div>
                                     <input {% if form.data_agendamento %} value="{{form.data_agendamento}}" {% endif %} name="data_agendamento" type="text" class="form-control pull-right"
                                         id="datepicker">
+                                       
                                 </div>
                                 {% if erros["data_agendamento"] %}
                                 <span class="help-block">Data é obrigatória</span>
@@ -179,7 +180,7 @@
                         <td>{{agendamento.hora_agendamento}}</td>
                         <td>
                             <div class="row linha4">
-                                <a title="Editar" href="/medicos/editar/?dados={{medico.crm}}" class="btn btn-success" role="button">
+                                <a title="Editar" href="/agendamentos/editar?cod={{agendamento.codigo}}" class="btn btn-success">
                                     <i class="fa fa-edit"></i>
                                     </i>
                                 </a>
@@ -190,6 +191,7 @@
                         </td>
 
                     </tr>
+
                     <div class="modal fade" id="modal-defaulta{{agendamento.codigo}}">
                         <div class="modal-dialog">
                           <div class="modal-content">

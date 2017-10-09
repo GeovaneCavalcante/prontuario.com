@@ -1,0 +1,163 @@
+{% extends "base.html" %} {% block title %}
+<title>Prontuário | Agendamento</title>
+{% endblock %} {% block li %}
+<li class="active">
+    <a href="http://prontuario.dev/medicos/cadastro">
+        <i class="fa fa-user-plus"></i>
+        Cadastro</a>
+</li>
+<li>
+    <a href="http://prontuario.dev/medicos">
+        <i class="fa fa-edit"></i>
+        Lista médica</a>
+</li>
+{% endblock %} {% block contentheader %}
+<h1>
+    Agendamento
+    <small>Editar</small>
+</h1>
+<ol class="breadcrumb">
+    <li>
+        <a href="#">
+            <i class="fa fa-user-plus"></i>Agendamento</a>
+    </li>
+    <li class="active">Editar</li>
+</ol>
+{% endblock %} {% block content %}
+<div class="alert alert-info alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+    <h4><i class="icon fa fa-info"></i> Alerta ao alterar os dados</h4>
+    Atualizando as informações será sobreescrito as antigas informações na base de dados!
+  </div>
+{% if erros %}
+<div class="alert alert-danger alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+    <h4>
+        <i class="icon fa fa-ban"></i>
+        Atenção</h4>
+    Preencha os campos necessários para concluir o cadastro!
+</div>
+{% endif %}
+{% if agendado == 'ok' %}
+<div class="alert alert-success alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+    <h4>
+        <i class="icon fa fa-check"></i>
+        Agendado</h4>
+    Seu agendamento foi realizado!
+</div>
+{% endif %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-primary">
+            <form action="/agendamentos/editar" method="post">
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <div class="form-group {% if erros.data_agendamento %} has-error {% endif %}">
+                                <label>Data
+                                    <b style="color: red">*</b>
+                                </label>
+
+                                <div class="input-group date">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <input value="{{agendamento.data_agendamento}}" {% if form.data_agendamento %} value="{{form.data_agendamento}}" {% endif %}  name="data_agendamento" type="text" class="form-control pull-right"
+                                        id="datepicker">
+
+                                        <input value="{{get}}" name="get" type="hidden" class="form-control pull-right">    
+
+                                </div>
+                                {% if erros["data_agendamento"] %}
+                                <span class="help-block">Data é obrigatória</span>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="col-sm-2">
+                            <div class="form-group {% if erros.hora_agendamento %} has-error {% endif %}">
+                                <label>Hora
+                                    <b style="color: red">*</b>
+                                </label>
+
+                                <div class="input-group">
+                                    <input value="{{agendamento.hora_agendamento}}" {% if form.hora_agendamento %} value="{{form.hora_agendamento}}" {% endif %} name="hora_agendamento" type="text" class="form-control timepicker">
+
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-clock-o"></i>
+                                    </div>
+                                </div>
+                                {% if erros["hora_agendamento"] %}
+                                <span class="help-block">Hora é obrigatória</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group {% if erros.paciente %} has-error {% endif %}">
+                                <label>Paciente
+                                    <b style="color: red">*</b>
+                                </label>
+                                <select name="paciente" class="form-control select2" style="width: 100%;">
+                                    {% set var = ''%}
+                                    {% for paciente in dados.pacientes %}
+                                        {% if paciente.cpf == agendamento.paciente %}
+                                            {% set var = paciente %}
+                                        {% endif %}    
+                                    {% endfor %}
+                                    
+                                    <option value="{{var.cpf}}">{{var.nome}}</option>
+
+                                    {% for paciente in dados.pacientes %}
+                                        <option value="{{paciente.cpf}}">{{paciente.nome}}</option>
+                                    {% endfor %}
+                                </select>
+                                {% if erros["paciente"] %}
+                                <span class="help-block">Paciente é obrigatório</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group {% if erros.medico %} has-error {% endif %}">
+                                <label>Médico
+                                    <b style="color: red">*</b>
+                                </label>
+                                <select name="medico" class="form-control select2" style="width: 100%;">
+                                    {% set var = ''%}
+                                    {% for medico in dados.medicos %}
+                                        {% if medico.crm == agendamento.medico %}
+                                            {% set var = medico %}
+                                        {% endif %}  
+                                    {% endfor %}
+                                    
+                                    <option value="{{var.crm}}">{{var.nome}}</option>
+                
+                                    {% for medico in dados.medicos %}
+                                        <option value="{{medico.crm}}">{{medico.nome}}</option>
+                                    {% endfor %}
+                                </select>
+                                {% if erros["medico"] %}
+                                <span class="help-block">Médico é obrigatório</span>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <div class="box-footer" style="margin: 0px; padding: 0px">
+                                <button type="submit" class="btn btn-primary">Editar</button>
+                                <a href="/agendamentos/cadastro" class="btn btn-danger">Cancelar</a>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}
