@@ -51,6 +51,19 @@
     <p class="login-box-msg">Entre para iniciar sua sessão</p>
 
     <form action="/login" method="post">
+      <div class="form-group {% if erros.medico %} has-error {% endif %}">
+          <label>Perfil de usuário
+              <b style="color: red"></b>
+          </label>
+          <select name="perfil" class="form-control select2" style="width: 100%;">
+              <option></option>
+              <option>Médico</option>
+              <option>Atendente</option>
+          </select>
+          {% if erros["medico"] %}
+          <span class="help-block">Médico é obrigatório</span>
+          {% endif %}
+      </div>
       <div class="form-group has-feedback">
         <input name="user" type="text" class="form-control" placeholder="Usuário">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>

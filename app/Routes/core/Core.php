@@ -13,7 +13,8 @@ class Core{
     public function start(){
 
         $this->klein->respond('/', function ($request, $response, $service) {
-            if ($_SESSION['status'] == true){
+            
+            if ($_SESSION['status'] == true or $_SESSION['statusMed'] == true){
                     echo $this->twig->getTwig()->render('core/index.html', array(
                     "user" => $_SESSION,
                 ));

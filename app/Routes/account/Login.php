@@ -22,14 +22,33 @@ class Login{
 
         $this->klein->respond('POST', '/login', function ($request, $response, $service) {
             $n = new \App\Controllers\account\Login($_POST);
-            if (count($n->validador()) > 0){
-                echo $this->twig->getTwig()->render('/account/login.html', array(
-                    "erro" => $n->validador())
-                );
+
+            if($_POST['perfil'] == 'Atendente'){
+                if (count($n->validador()) > 0){
+                    echo $this->twig->getTwig()->render('/account/login.html', array(
+                        "erro" => $n->validador())
+                    );
+                }else{
+                    $_SESSION['status'] = true;
+                    $_SESSION['statusMed'] = false;
+                    $response->redirect('/');
+                }
+            }else if($_POST['perfil'] == 'Médico'){
+                if (count($n->validador()) > 0){
+                    echo $this->twig->getTwig()->render('/account/login.html', array(
+                        "erro" => $n->validador())
+                    );
+                }else{
+                    $_SESSION['status'] = false;
+                    $_SESSION['statusMed'] = true;
+                    $response->redirect('/');
+                }
             }else{
-                $_SESSION['status'] = true;
-                $response->redirect('/');
-            }
+                $erro = ['Selecione um perfil', ];
+                echo $this->twig->getTwig()->render('/account/login.html', array(
+                    "erro" => $erro
+                ));
+            } 
         });
         
 
