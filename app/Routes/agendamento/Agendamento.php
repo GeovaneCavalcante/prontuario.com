@@ -126,6 +126,23 @@ class Agendamento{
 
         });
 
+        $this->klein->respond('GET', '/agendados', function ($request, $response, $service) {
+            
+            if ($_SESSION['statusMed'] == true){
+                $con = new \App\Controllers\agendamento\AgendamentoList();
+            
+                echo $this->twig->getTwig()->render('agendamento/list.html', array(
+                    "user" => $_SESSION,
+                    "agendamentos" => $con->getAgendamentoEsp($_SESSION['crm'])
+                ));  
+
+            }else{
+                $response->redirect('/login');
+            }
+
+        });
+
+
 
     }
 }

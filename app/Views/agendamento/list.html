@@ -1,0 +1,121 @@
+{% extends "base.html" %} {% block title %}
+<title>Prontuário | Agendamento</title>
+{% endblock %} {% block li %}
+<li class="active">
+    <a href="http://prontuario.dev/medicos/cadastro">
+        <i class="fa fa-user-plus"></i>
+        Cadastro</a>
+</li>
+<li>
+    <a href="http://prontuario.dev/medicos">
+        <i class="fa fa-edit"></i>
+        Lista médica</a>
+</li>
+{% endblock %} {% block contentheader %}
+<h1>
+    Agendamentos
+   
+</h1>
+<ol class="breadcrumb">
+    <li>
+        <a href="#">
+            <i class="fa fa-user-plus"></i>Agendamento</a>
+    </li>
+    <li class="active">lista</li>
+</ol>
+{% endblock %} {% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="box ">
+            <div class="box-header with-border">
+                <h3 class="box-title">Todos Agendamentos</h3>
+            </div>
+            <form action="/agendamentos/register" method="post">
+                <div class="box-body">
+
+                    <table class="table table-bordered table-striped" id="example1">
+                        <div class="row linha">
+                            <div class="col-sm-3">
+                                <!--
+                                    <div class="input-group">
+                                      <label for="">Pesquisa</label>
+                                      <input onkeyup="showResult(this.value)"  type="text" class="form-control" placeholder="Digite o nome">
+                          
+                                    </div>
+                                  -->
+                            </div>
+                            <div class="col-sm-9">
+                            </div>
+                        </div>
+                </div>
+                <thead>
+                    <tr>
+                        <th>Paciente</th>
+                        <th>Data</th>
+                        <th>Hora</th>
+                        <th>Atender</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody id="livesearch">
+                    {% for agendamento in agendamentos %} 
+                    <tr>
+                        <td>{{agendamento.nomePaciente}}</td>
+                        <td>{{agendamento.data_agendamento}}</td>
+                        <td>{{agendamento.hora_agendamento}}</td>
+                        <td> <a href="/agendamentos/apagar/?id={{agendamento.codigo}}" class="btn btn-primary"role="button"><i class="fa fa-pencil"></i> </i></a></td>
+                        <td>
+                            <div class="row linha4">
+                                <a title="Editar" href="/agendamentos/editar?cod={{agendamento.codigo}}" class="btn btn-success">
+                                    <i class="fa fa-edit"></i>
+                                    </i>
+                                </a>
+                                <button title="Excluir" type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-defaulta{{agendamento.codigo}}">
+                                    <i class="fa fa-close"></i>
+                                </button>
+                            </div>
+                        </td>
+
+                    </tr>
+
+                    <div class="modal fade" id="modal-defaulta{{agendamento.codigo}}">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                              <div class="alert alert-danger alert-dismissible modalre">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                <h4><i class="icon fa fa-ban"></i> Atenção</h4>
+                              </div>
+                              <div class="panel-body">
+                              <h4> Você confirma a exclução do agendamento do paciente: <strong>{{agendamento.nomePaciente}}?</strong></h4>
+                              <br>
+                            </div>
+                            <div class="modal-footer" style="background: white">
+                              <button type="button" class="btn btn-primary pull-left" data-dismiss="modal">Cancelar</button>
+                              <a href="/agendamentos/apagar/?id={{agendamento.codigo}}" class="btn btn-danger"role="button">Deletar <i class="fa fa-close"></i> </i></a>
+                            </div>
+                          </div>
+                          <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                      </div>
+                    </div>
+                {% endfor %}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>Paciente</th>
+                        <th>Data</th>
+                        <th>Hora</th>
+                        <th>Atender</th>
+                        <th>ações</th>
+                    </tr>
+                </tfoot>
+                </table>
+                
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+{% endblock %}

@@ -53,6 +53,15 @@ class AgendamentoList{
         }
     }
 
+    public function getAgendamentoEsp($crm){
+        $agendamentos = $this->modelAgendamento->getAgendamentoEsp($crm);
+       
+        if ($agendamentos['status'] == 200){
+             return $agendamentos['resultado'];
+         }else{
+             return 404;
+         }
+    }
     public function deletaAgendamento($id){
         $agendamento = $this->modelAgendamento->deletaAgendamento($id);
     }

@@ -66,6 +66,40 @@ class Agendamento{
               
     }
 
+    public function getAgendamentoEsp($crm){
+
+        $sql = "SELECT * FROM agendamentos where medico ='$crm' and is_active = 'ativo' order by data_agendamento asc";
+        $result = $this->connect->getConnection()->query($sql);
+
+        if (!$result){
+            return ["status" => 404, "resultado" => "Nada encontrado"];
+        }else{
+            $i = 0;
+            $array = [];
+            while ($dados = mysqli_fetch_assoc($result)){
+
+                $modelMedico = new \App\Models\medico\Medico();
+                
+                if ($modelMedico->getMedico($dados['medico'])['status'] == 200){
+                    $medico = $modelMedico->getMedico($dados['medico'])['resultado'];
+                    $dados['nomeMedico'] = $medico['nome'];
+                }
+               
+               
+                $modelPaciente = new \App\Models\paciente\Paciente();
+
+                if ($modelPaciente->getPaciente($dados['paciente'])['status'] == 200){
+                    $paciente = $modelPaciente->getPaciente($dados['paciente'])['resultado'];
+                    $dados['nomePaciente'] = $paciente['nome'];
+                }
+
+                $array[$i] = $dados;
+                $i++;
+            }
+        }
+        return ["status" => 200, "resultado" => $array];
+    }
+
     public function getAgendamento($id){
         $sql = "select * from agendamentos where codigo= '$id' and is_active = 'ativo'";
 

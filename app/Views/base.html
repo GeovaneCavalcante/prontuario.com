@@ -150,78 +150,47 @@
                   </a>
                 </li>
        
-
-              <li class="treeview">
-                <a href="#">
+            {% if user.status == true %}
+                
+            
+              <li>
+                <a href="/medicos">
                   <i class="fa fa-heart"></i>
                   <span>Médicos</span>
                   <span class="pull-right-container">
-                    <i class="fa fa-angle-left pull-right"></i>
+                    
                   </span>
                 </a>
-
-                <ul class="treeview-menu">
-                {% block li %}
-                  <li>
-                    <a href="/medicos/cadastro">
-                      <i class="fa fa-user-plus"></i>
-                      Cadastro</a>
-                  </li>
-                  <li>
-                    <a href="/medicos">
-                      <i class="fa fa-edit"></i>
-                      Lista médica</a>
-                  </li>
-
-                </ul>
-                {% endblock %}
               </li>
-          </ul>
-          <li class="treeview">
-            <a href="#">
+           
+          <li>
+            <a href="/pacientes">
               <i class="fa fa-child"></i>
               <span>Pacientes</span>
-              <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-              </span>
             </a>
-
-            <ul class="treeview-menu">
-            {% block lipa %}
-              <li>
-                <a href="/pacientes/cadastro">
-                  <i class="fa fa-user-plus"></i>
-                  Cadastro</a>
-              </li>
-              <li>
-                <a href="/pacientes">
-                  <i class="fa fa-edit"></i>
-                  Lista de pacientes</a>
-              </li>
-
-            </ul>
-            {% endblock %}
           </li>
-          <li class="treeview">
-            <a href="#">
+          <li>
+            <a href="/agendamentos/cadastro">
               <i class="fa fa-calendar-minus-o"></i>
               <span>Agendamentos</span>
               <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
               </span>
             </a>
 
-            <ul class="treeview-menu">
-            {% block lia %}
-              <li>
-                <a href="/agendamentos/cadastro">
-                  <i class="fa fa-user-plus"></i>
-                  Agendamento</a>
-              </li>
-
-            </ul>
-            {% endblock %}
           </li>
+       
+          {% endif %}
+          {% if user.statusMed %}
+            <li>
+              <a href="/agendados">
+                <i class="fa fa-calendar-minus-o"></i>
+                <span>Agendados</span>
+                <span class="pull-right-container">
+                </span>
+              </a>
+
+            </li>
+          {% endif %}
         </section>
         <!-- /.sidebar -->
       </aside>

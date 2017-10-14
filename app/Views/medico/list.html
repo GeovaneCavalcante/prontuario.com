@@ -22,7 +22,11 @@
   <div class="box-body">
     <table class="table table-bordered table-striped" id="example1">
       <div class="row linha">
-        <div class="col-sm-3">
+          <div class="col-sm-11">
+              
+          </div>
+        <div class="col-sm-1">
+            <a href="/medicos/cadastro" class="btn btn-primary">Adicionar</a>
           <!--
           <div class="input-group">
             <label for="">Pesquisa</label>
@@ -31,11 +35,11 @@
           </div>
         -->
         </div>
-        <div class="col-sm-9">
-        </div>
+        
       </div>
   </div>
   <thead>
+    
     <tr>
       <th>Nome</th>
       <th>CRM</th>
@@ -44,7 +48,9 @@
       <th>Ações</th>
     </tr>
   </thead>
+  
   <tbody id="livesearch">
+    
     {% for medico in dados%}
     <tr>
       <td>{{medico.nome}}</td>

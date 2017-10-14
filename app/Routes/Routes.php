@@ -35,6 +35,9 @@ class Routes {
         $core = new \App\Routes\agendamento\Agendamento($this->klein, $this->twig);
         $core->start();
 
+        $core = new \App\Routes\atendimento\Atendimento($this->klein, $this->twig);
+        $core->start();
+
         $this->klein->dispatch();
 
     }

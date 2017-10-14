@@ -34,7 +34,7 @@ class Login{
 
     private function sessao($resultado, $dados){
         
-        if (count($resultado)==0){
+        if (count($resultado)==0){     var_dump($_SESSION);
             $valor = $dados['resultado'];
             $_SESSION['login'] = $valor['username'];
             $_SESSION['senha'] = $valor['pass'];
@@ -49,8 +49,9 @@ class Login{
         if (count($resultado)==0){
             $valor = $dados['resultado'];
             $user = strstr($valor['nome'], ' ', true);
+            $_SESSION['crm'] = $valor['crm'];
             $_SESSION['login'] = $user;
-            $_SESSION['senha'] = $valor['pass'];
+            $_SESSION['senha'] = $user['pass'];
         }else{
             unset ($_SESSION['login']);
             unset ($_SESSION['senha']);

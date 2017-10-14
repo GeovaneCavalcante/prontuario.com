@@ -1,0 +1,129 @@
+{% extends "base.html" %} {% block title %}
+<title>Prontuário | Agendamento</title>
+{% endblock %} 
+{% block contentheader %}
+<h1>
+        Atendimento
+
+</h1>
+<ol class="breadcrumb">
+    <li>
+        <a href="#">
+            <i class="fa fa-user-plus"></i>Atendimento</a>
+    </li>
+
+</ol>
+{% endblock %} {% block content %}
+{% if erros %}
+<div class="alert alert-danger alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+    <h4>
+        <i class="icon fa fa-ban"></i>
+        Atenção</h4>
+    Preencha os campos necessários para concluir o cadastro!
+</div>
+{% endif %}
+{% if agendado == 'ok' %}
+<div class="alert alert-success alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+    <h4>
+        <i class="icon fa fa-check"></i>
+        Agendado</h4>
+    Seu agendamento foi realizado!
+</div>
+{% endif %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-primary box-primary">
+            <form action="/agendamentos/register" method="post">
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label  for="exampleInputEmail1">Problemas Renais</label>
+                                    <input name="p_renais" type="text" class="form-control" id="exampleInputEmail1" placeholder="Problemas Renais">
+                                </div>                               
+                        </div>
+                        <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Problemas Articulares</label>
+                                    <input name="p_articulares" type="text" class="form-control" id="exampleInputEmail1" placeholder="Problemas Articulares">
+                                </div>                               
+                        </div>
+                        <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Problemas Cardíacos</label>
+                                    <input name="p_cardiacos" type="text" class="form-control" id="exampleInputEmail1" placeholder="Problemas Cardíacos">
+                                </div>                               
+                        </div>
+                        <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Problemas Gástricos</label>
+                                    <input name="p_gastriculos" type="text" class="form-control" id="exampleInputEmail1" placeholder="Problemas Gástricos">
+                                </div>                               
+                        </div>
+                        <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Alergias</label>
+                                    <input name="alergias" type="text" class="form-control" id="exampleInputEmail1" placeholder="Alergias">
+                                </div>                               
+                        </div>
+                        <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Ultiliza Medicamentos</label>
+                                    <input name="ultiliza_med" type="text" class="form-control" id="exampleInputEmail1" placeholder="Ultiliza Medicamentos">
+                                </div>                               
+                        </div>
+                        <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Queixa Principal</label>
+                                    <textarea name="queixas_principais" rows="5" type="text" class="form-control" id="exampleInputEmail1" placeholder="Queixa Principal  "></textarea>
+                                </div>                               
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="">Informações relevantes</label><br>
+                                <label style="margin-right: 4%"> 
+                                  <input name="hepatite" type="checkbox" class="flat-red">
+                                  Hepatite
+                                </label>
+                                <label> 
+                                    <input name="gravidez" type="checkbox" class="flat-red">
+                                    Gravidez
+                                </label>
+                              
+                              
+                              </div>
+                              <div class="form-group">
+                                    <label style="margin-right: 4%"> 
+                                            <input name="diabetes" type="checkbox" class="flat-red">
+                                            Diabetes
+                                          </label>
+                                    <label> 
+                                            <input name="cicatrização" type="checkbox" class="flat-red">
+                                            Probelmas de cicatrização
+                                    </label>
+                              </div>
+                        </div>
+                        
+
+
+                        <div class="col-sm-12">
+                            <div class="box-footer" style="margin: 0px; padding: 0px">
+                                <button type="submit" class="btn btn-primary">Atender</button>
+                                <a href="/" class="btn btn-danger">Cancelar</a>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
