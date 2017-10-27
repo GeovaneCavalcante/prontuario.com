@@ -35,50 +35,124 @@
 <div class="row">
     <div class="col-md-12">
         <div class="box box-primary box-primary">
-            <form action="/agendamentos/register" method="post">
+            <form action="/atendimento" method="post">
                 <div class="box-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                                <table class="table table-bordered table-striped">
+                                        <div class="row linha">
+                                            <div class="col-sm-3">
+                                                <!--
+                                                    <div class="input-group">
+                                                      <label for="">Pesquisa</label>
+                                                      <input onkeyup="showResult(this.value)"  type="text" class="form-control" placeholder="Digite o nome">
+                                          
+                                                    </div>
+                                                  -->
+                                            </div>
+                                            <div class="col-sm-9">
+                                            </div>
+                                        </div>
+                                </div>
+                                <thead>
+                                    <tr>
+                                        <th>Sinais vitais</th>
+                                        <th>Hipótese</th>
+                                        <th>Prescrição</th>
+                                        <th>Evolução</th>
+                                        <th>Atestado</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="livesearch">
+                                    <tr>
+                                        <td>
+                                                <a title="Editar" href="/agendamentos/editar?cod={{agendamento.codigo}}" class="btn btn-primary">
+                                                    Sinais vitais    <i class="fa fa-heartbeat"></i>   
+                                                </a>
+                                        </td>
+                                        <td>
+                                                <a title="Editar" href="/agendamentos/editar?cod={{agendamento.codigo}}" class="btn btn-primary">
+                                                    Hipótese    <i class="fa fa-gavel"></i>   
+                                                </a>
+                                        </td>
+                                        <td>
+                                                <a title="Editar" href="/agendamentos/editar?cod={{agendamento.codigo}}" class="btn btn-primary">
+                                                    Prescrição    <i class="fa  fa-pencil"></i>   
+                                                </a>
+                                        </td>
+                                        <td>
+                                                <a title="Editar" href="/agendamentos/editar?cod={{agendamento.codigo}}" class="btn btn-primary">
+                                                    Evolução    <i class="fa fa-external-link"></i>   
+                                                </a>
+                                        </td>
+                                        <td>
+                                                <a title="Editar" href="/agendamentos/editar?cod={{agendamento.codigo}}" class="btn btn-primary">
+                                                    Atestado    <i class="fa fa-edit"></i>   
+                                                </a>
+                                        </td>
+                
+                                    </tr>
+                
+                                
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>Sinais vitais</th>
+                                        <th>Hipótese</th>
+                                        <th>Prescrição</th>
+                                        <th>Evolução</th>
+                                        <th>Atestado</th>
+                                    </tr>
+                                </tfoot>
+                                </table>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-sm-4">
                                 <div class="form-group">
                                     <label  for="exampleInputEmail1">Problemas Renais</label>
-                                    <input name="p_renais" type="text" class="form-control" id="exampleInputEmail1" placeholder="Problemas Renais">
+                                    <input name="codigo_agendamento"  type="hidden" value="{{get}}" class="form-control" id="exampleInputEmail1" placeholder="Problemas Renais">
+                                    <input name="p_renais" value="{{form.p_renais}}" type="text" class="form-control" id="exampleInputEmail1" placeholder="Problemas Renais">
                                 </div>                               
                         </div>
                         <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Problemas Articulares</label>
-                                    <input name="p_articulares" type="text" class="form-control" id="exampleInputEmail1" placeholder="Problemas Articulares">
+                                    <input name="p_articulares"  value="{{form.p_articulares}}" type="text" class="form-control" id="exampleInputEmail1" placeholder="Problemas Articulares">
                                 </div>                               
                         </div>
                         <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Problemas Cardíacos</label>
-                                    <input name="p_cardiacos" type="text" class="form-control" id="exampleInputEmail1" placeholder="Problemas Cardíacos">
+                                    <input name="p_cardiacos"  value="{{form.p_cardiacos}}" type="text" class="form-control" id="exampleInputEmail1" placeholder="Problemas Cardíacos">
                                 </div>                               
                         </div>
                         <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Problemas Gástricos</label>
-                                    <input name="p_gastriculos" type="text" class="form-control" id="exampleInputEmail1" placeholder="Problemas Gástricos">
+                                    <input name="p_gastriculos"  value="{{form.p_gastriculos}}" type="text" class="form-control" id="exampleInputEmail1" placeholder="Problemas Gástricos">
                                 </div>                               
                         </div>
                         <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Alergias</label>
-                                    <input name="alergias" type="text" class="form-control" id="exampleInputEmail1" placeholder="Alergias">
+                                    <input name="alergias"  value="{{form.alergias}}" type="text" class="form-control" id="exampleInputEmail1" placeholder="Alergias">
                                 </div>                               
                         </div>
                         <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Ultiliza Medicamentos</label>
-                                    <input name="ultiliza_med" type="text" class="form-control" id="exampleInputEmail1" placeholder="Ultiliza Medicamentos">
+                                    <input name="ultiliza_med"  value="{{form.ultiliza_med}}" type="text" class="form-control" id="exampleInputEmail1" placeholder="Ultiliza Medicamentos">
                                 </div>                               
                         </div>
                         <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">Queixa Principal</label>
+                           
+                                <div class="form-group  {% if erros.queixas_principais %} has-error {% endif %}">
+                                    <label for="exampleInputEmail1">Queixa Principal  <b style="color: red">*</b></label>
                                     <textarea name="queixas_principais" rows="5" type="text" class="form-control" id="exampleInputEmail1" placeholder="Queixa Principal  "></textarea>
-                                </div>                               
+                                    {% if erros.queixas_principais %} <p style="color: red">Campo obrigatório</p> {% endif %}
+                                </div>       
+                                                        
                         </div>
 
                         <div class="col-sm-6">
@@ -97,7 +171,7 @@
                               </div>
                               <div class="form-group">
                                     <label style="margin-right: 4%"> 
-                                            <input name="diabetes" type="checkbox" class="flat-red">
+                                            <input name="diabetes"  type="checkbox" class="flat-red">
                                             Diabetes
                                           </label>
                                     <label> 

@@ -84,35 +84,34 @@ CREATE TABLE IF NOT EXISTS agendamentos(
     hora_agendamento varchar(45) not null,
     paciente VARCHAR(30) not null,
     medico varchar(100) NOT NULL,
+    is_active varchar(20),
     primary key (codigo),
     foreign key (paciente) references pacientes(cpf),
     foreign key (medico) references medicos(crm)
 );
 
 
-CREATE TABLE IF NOT EXISTS `mydb`.`Atendimento` (
-  `queixa_p` VARCHAR(500) NULL,
-  `Hist` VARCHAR(100) NULL,
-  `prb_renal` TINYINT(1) NULL,
-  `prb_articular` TINYINT(1) NULL,
-  `prb_card` TINYINT(1) NULL,
-  `prb_resp` TINYINT(1) NULL,
-  `prb_gast` TINYINT(1) NULL,
-  `alergias` TINYINT(1) NULL,
-  `hepatite` TINYINT(1) NULL,
-  `gravidez` TINYINT(1) NULL,
-  `diabetes` TINYINT(1) NULL,
-  `prb_cicatriz` TINYINT(1) NULL,
-  `utl_medicamento` TINYINT(1) NULL,
-  `Agendamento_Cod` INT NOT NULL,
-  PRIMARY KEY (`Agendamento_Cod`),
-  CONSTRAINT `fk_agend_atend`
-    FOREIGN KEY (`Agendamento_Cod`)
-    REFERENCES `mydb`.`Agendamento` (`Cod`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
+CREATE TABLE IF NOT EXISTS atendimentos (
+	codigo int not null auto_increment,
+    p_renais varchar(40),
+    p_articulares varchar(40),
+    p_cardiacos varchar(40),
+    p_gastriculos varchar(40),
+    alergias varchar(40),
+    ultiliza_med varchar(40),  
+    queixas_principais varchar(800),
+    hepatite varchar(10),
+    gravidez varchar(10),
+    diabetes varchar(10),
+    cicatrização varchar(10),
+    codigo_agendamento int not null,
+    is_active varchar(20),
+    primary key (codigo),
+    foreign key (codigo_agendamento) references agendamento(codigo)
+    
+)ENGINE = InnoDB;
+use mydb;
+select * from atendimentos;
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
