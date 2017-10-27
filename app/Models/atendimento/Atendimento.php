@@ -153,6 +153,30 @@ class Atendimento{
         }
     }
 
+    public function insertAtestado($dados){
+        
+        $sql = "
+            INSERT INTO atestado
+            (
+                texto, codigo_agendamento, is_active
+            )
+            VALUES
+            ( 
+                '$dados[texto]', '$dados[codigo_agendamento]', 'ativo'
+               
+            )
+        ";
+
+        if ($this->connect->getConnection()->query($sql) == true){
+            
+            return ["status" => 200, "resultado" => "Criado com sucesso"];;
+        }else{
+            echo "Falha ao criar registro " . mysqli_error($this->connect->getConnection());
+            $error = $this->connect->getConnection()->error;
+            return ["status" => 405, "resultado" => "Falha ao criar registro: $error"];;
+        }
+    }
+
 
     public function getAtendimentos($cpf){
         $sql = "SELECT * FROM atendimentos where is_active = 'ativo'";

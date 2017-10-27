@@ -29,10 +29,10 @@ class Atendimento{
     }
 
     public function insertAtendimento(){
-
         $result = $this->modelAtendimento->insertAtendimento($this->post);    
-
+        $modelAgendamento = new \App\Models\agendamento\Agendamento();
         if($result['status'] == 200){
+            $modelAgendamento->deletaAgendamento($this->post['codigo_agendamento']);
             return $result['resultado'];
         }else{
             echo "erro";
@@ -80,10 +80,25 @@ class Atendimento{
         }
 
     }
+    
+    
 
     public function inserEvolucao(){
         
         $result = $this->modelAtendimento->inserEvolucao($this->post);    
+
+        if($result['status'] == 200){
+            return $result['resultado'];
+        }else{
+            echo "erro";
+            die;
+        }
+
+    }
+
+    public function insertAtestado(){
+        
+        $result = $this->modelAtendimento->insertAtestado($this->post);    
 
         if($result['status'] == 200){
             return $result['resultado'];

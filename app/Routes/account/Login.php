@@ -41,7 +41,7 @@ class Login{
                 }else{
                     $_SESSION['status'] = false;
                     $_SESSION['statusMed'] = true;
-                    $response->redirect('/');
+                    $response->redirect('/agendados');
                 }
             }else{
                 $erro = ['Selecione um perfil', ];

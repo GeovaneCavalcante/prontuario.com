@@ -86,9 +86,9 @@
                                                 </button>
                                         </td>
                                         <td>
-                                                <a title="Editar" href="/agendamentos/editar?cod={{agendamento.codigo}}" class="btn btn-primary">
+                                                <button title="Editar" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-defaulta">
                                                     Atestado    <i class="fa fa-edit"></i>   
-                                                </a>
+                                                </button>
                                         </td>
                 
                                     </tr>
@@ -406,6 +406,47 @@
                                             <label for="exampleInputEmail1">
                                                     Evolução</label>
                                             <textarea  cols="30" rows="10" name="evolucao" type="text" class="form-control" id="exampleInputEmail1" placeholder="Evolução"></textarea>
+                                            <input  name="codigo_agendamento" value="{{get}}" type="hidden" class="form-control" id="exampleInputEmail1" placeholder="Altura">
+                                        </div>
+
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-12">
+                                        <div class="box-footer">
+                                            <button class="btn btn-primary pull-left" style="margin-right: 2%">Cadastrar</button>
+                                            <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Fechar</button>
+                                        </div>
+                                    </div>
+                                </form>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                    </div>
+                </div>    
+
+                <div class="modal fade" tabindex="-1" id="modal-defaulta">
+                        <div class="modal-dialog " role="document">
+                        <div class="modal-content modalborda">
+
+                            <div class="row">
+                            <div class="col-md-12">
+                                <div class="box box-primary ">
+                                <div class="box-header with-border">
+                                    <h1 class="box-title">Atestado</h1>
+                                </div>
+                                <div class="row">
+                                    <form action="/atestado" method="post">
+                                    <div class="col-md-12">
+                                        <div class="box-body">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">
+                                                    Atestado</label>
+                                            <textarea  cols="30" rows="10" name="texto" type="text" class="form-control" id="exampleInputEmail1" placeholder="Atestado"></textarea>
                                             <input  name="codigo_agendamento" value="{{get}}" type="hidden" class="form-control" id="exampleInputEmail1" placeholder="Altura">
                                         </div>
 

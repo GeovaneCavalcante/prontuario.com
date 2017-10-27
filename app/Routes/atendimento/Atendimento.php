@@ -96,6 +96,14 @@ class Atendimento{
              
         });
 
+        $this->klein->respond('POST', '/atestado', function ($request, $response, $service) {
+            
+             $con = new \App\Controllers\atendimento\Atendimento($_POST);
+             $con->insertAtestado();
+             $response->redirect('/atendimento?id='. $_POST['codigo_agendamento']);
+              
+        });
+
 
 
 

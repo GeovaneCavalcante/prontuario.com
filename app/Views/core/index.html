@@ -29,10 +29,38 @@
 {% endblock %}
 
 {% block content %}
+{% if user.statusMed %}
+<div class="row ind">
+    <div class="col-md-3">
+      
+    </div>
+    <div class="col-md-6">
+        <div class="box-body">
+          <div class="small-box bg-red">
+            <div class="inner">
+              <h3 style="font-size: 230%">Todos Agendamentos</h3>
+    
+              <p>Informações sobre agendamentos</p>
+            </div>
+            <div class="icon">
+              <i class="fa fa-calendar-check-o"></i>
+            </div>
+            <a href="/agendados" class="small-box-footer">Acompanhe
+              <i class="fa fa-arrow-circle-right"></i>
+            </a>
+          </div>
+    
+        </div>
+      </div>
+  
+    
+  </div>
+{%  else %}
 <div class="row ind">
   <div class="col-md-2">
 
   </div>
+
   <div class="col-md-4">
     <div class="box-body">
       <div class="small-box bg-aqua">
@@ -92,4 +120,5 @@
     </div>
   </div>
 </div>
+{%  endif %}
 {% endblock %}

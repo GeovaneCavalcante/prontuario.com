@@ -156,6 +156,16 @@ create table evolucao(
     foreign key (codigo_agendamento) references agendamentos(codigo) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
+drop table atestado;
+create table atestado(
+	id int not null auto_increment,
+    texto varchar(1000),
+    is_active varchar(20),
+    codigo_agendamento int not null,
+    primary key (id),
+    foreign key (codigo_agendamento) references agendamentos(codigo) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
 
 
 use mydb;
