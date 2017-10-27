@@ -64,5 +64,40 @@ class Atendimento{
         });
 
 
+        $this->klein->respond('POST', '/sinais', function ($request, $response, $service) {
+            $con = new \App\Controllers\atendimento\Atendimento($_POST);
+            $con->insertSinais();
+            $response->redirect('/atendimento?id='. $_POST['codigo_agendamento']);
+             
+        });
+
+
+        $this->klein->respond('POST', '/hipotese', function ($request, $response, $service) {
+            $con = new \App\Controllers\atendimento\Atendimento($_POST);
+            $con->insertHipotese();
+            $response->redirect('/atendimento?id='. $_POST['codigo_agendamento']);
+             
+        });
+
+
+        $this->klein->respond('POST', '/prescricao', function ($request, $response, $service) {
+            $con = new \App\Controllers\atendimento\Atendimento($_POST);
+            $con->inserPrescricao();
+            $response->redirect('/atendimento?id='. $_POST['codigo_agendamento']);
+             
+        });
+
+
+        $this->klein->respond('POST', '/evolucao', function ($request, $response, $service) {
+           
+            $con = new \App\Controllers\atendimento\Atendimento($_POST);
+            $con->inserEvolucao();
+            $response->redirect('/atendimento?id='. $_POST['codigo_agendamento']);
+             
+        });
+
+
+
+
     }
 }

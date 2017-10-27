@@ -66,24 +66,24 @@
                                 <tbody id="livesearch">
                                     <tr>
                                         <td>
-                                                <a title="Editar" href="/agendamentos/editar?cod={{agendamento.codigo}}" class="btn btn-primary">
+                                                <button title="Editar" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-defaults">
                                                     Sinais vitais    <i class="fa fa-heartbeat"></i>   
-                                                </a>
+                                                </button>
                                         </td>
                                         <td>
-                                                <a title="Editar" href="/agendamentos/editar?cod={{agendamento.codigo}}" class="btn btn-primary">
+                                                <button title="Editar" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-defaulth">
                                                     Hipótese    <i class="fa fa-gavel"></i>   
-                                                </a>
+                                                </button>
                                         </td>
                                         <td>
-                                                <a title="Editar" href="/agendamentos/editar?cod={{agendamento.codigo}}" class="btn btn-primary">
+                                                <button title="Editar" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-defaultp">
                                                     Prescrição    <i class="fa  fa-pencil"></i>   
-                                                </a>
+                                                </button>
                                         </td>
                                         <td>
-                                                <a title="Editar" href="/agendamentos/editar?cod={{agendamento.codigo}}" class="btn btn-primary">
+                                                <button title="Editar" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-defaulte">
                                                     Evolução    <i class="fa fa-external-link"></i>   
-                                                </a>
+                                                </button>
                                         </td>
                                         <td>
                                                 <a title="Editar" href="/agendamentos/editar?cod={{agendamento.codigo}}" class="btn btn-primary">
@@ -180,8 +180,6 @@
                                     </label>
                               </div>
                         </div>
-                        
-
 
                         <div class="col-sm-12">
                             <div class="box-footer" style="margin: 0px; padding: 0px">
@@ -197,6 +195,240 @@
 
                 </div>
             </form>
+                   <!-- inicio model ver -->
+                   <div class="modal fade" tabindex="-1" id="modal-defaults">
+                        <div class="modal-dialog " role="document">
+                        <div class="modal-content modalborda">
+
+                            <div class="row">
+                            <div class="col-md-12">
+                                <div class="box box-primary ">
+                                <div class="box-header with-border">
+                                    <h1 class="box-title">Sinais Vitais</h1>
+                                </div>
+                                <div class="row">
+                                    <form action="/sinais" method="post">
+                                    <div class="col-md-6">
+                                        <div class="box-body">
+                                            <div class="bootstrap-timepicker">
+                                                <div class="form-group">
+                                                    <label>Hora</label>
+                                
+                                                    <div class="input-group">
+                                                    <input type="text" name="hora" class="form-control timepicker">
+                                
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-clock-o"></i>
+                                                    </div>
+                                                    </div>
+                                                    <!-- /.input group -->
+                                                </div>
+                                                <!-- /.form group -->
+                                            </div>
+                                            <div class="form-group">
+                                                <label> Data </label>
+
+                                                <div class="input-group">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+
+                                                </div>
+                                                <input name="data_sinais" type="text" class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask>
+                                                </div>
+
+                                            </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">
+                                                Altura</label>
+                                            <input  name="altura" type="text" class="form-control" id="exampleInputEmail1" placeholder="Altura">
+                                            <input  name="codigo_agendamento" value="{{get}}" type="hidden" class="form-control" id="exampleInputEmail1" placeholder="Altura">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword1">Peso</label>
+                                            <input  name="peso" type="text" class="form-control" id="exampleInputPassword1" placeholder="Peso">
+                                        </div>
+                                        
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="box-body">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">
+                                                    IMC</label>
+                                                <input  name="imc" type="text" class="form-control" id="exampleInputEmail1" placeholder="IMC" >
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Temperatura</label>
+                                                <input  name="temperatura" type="text" class="form-control" id="exampleInputEmail1" placeholder="Temperatura" >
+                                           
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label>Dores</label>
+                                                <textarea name="dor" class="form-control" cols="30" rows="4"></textarea>
+                                  
+                                            </div>
+                                           
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                  
+                                   
+                                    <div class="col-md-12">
+                                        <div class="box-footer">
+                                            <button class="btn btn-primary pull-left" style="margin-right: 2%">Cadastrar</button>
+                                            <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Fechar</button>
+                                        </div>
+                                    </div>
+                                </form>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                    </div>
+                    </div>
+                    <!-- fim model ver -->
+
+
+                    <div class="modal fade" tabindex="-1" id="modal-defaulth">
+                        <div class="modal-dialog " role="document">
+                        <div class="modal-content modalborda">
+
+                            <div class="row">
+                            <div class="col-md-12">
+                                <div class="box box-primary ">
+                                <div class="box-header with-border">
+                                    <h1 class="box-title">Hipótese</h1>
+                                </div>
+                                <div class="row">
+                                    <form action="/hipotese" method="post">
+                                    <div class="col-md-12">
+                                        <div class="box-body">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">
+                                                    Hipótese</label>
+                                            <textarea  cols="30" rows="5" name="hipotese" type="text" class="form-control" id="exampleInputEmail1" placeholder="Hipótese"></textarea>
+                                            <input  name="codigo_agendamento" value="{{get}}" type="hidden" class="form-control" id="exampleInputEmail1" placeholder="Altura">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword1">Observações</label>
+                                            
+                                            <textarea  cols="30" rows="5" name="observacoes" type="text" class="form-control" id="exampleInputEmail1" placeholder="Observações"></textarea>
+                                        </div>
+                                        
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-12">
+                                        <div class="box-footer">
+                                            <button class="btn btn-primary pull-left" style="margin-right: 2%">Cadastrar</button>
+                                            <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Fechar</button>
+                                        </div>
+                                    </div>
+                                </form>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                    </div>
+                    </div>
+                    <!-- fim model ver -->
+
+
+                    <div class="modal fade" tabindex="-1" id="modal-defaultp">
+                            <div class="modal-dialog " role="document">
+                            <div class="modal-content modalborda">
+    
+                                <div class="row">
+                                <div class="col-md-12">
+                                    <div class="box box-primary ">
+                                    <div class="box-header with-border">
+                                        <h1 class="box-title">Prescrição para Paciente</h1>
+                                    </div>
+                                    <div class="row">
+                                        <form action="/prescricao" method="post">
+                                        <div class="col-md-12">
+                                            <div class="box-body">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">
+                                                        Prescrição</label>
+                                                <textarea  cols="30" rows="10" name="prescricao" type="text" class="form-control" id="exampleInputEmail1" placeholder="Prescrição"></textarea>
+                                                <input  name="codigo_agendamento" value="{{get}}" type="hidden" class="form-control" id="exampleInputEmail1" placeholder="Altura">
+                                            </div>
+
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-12">
+                                            <div class="box-footer">
+                                                <button class="btn btn-primary pull-left" style="margin-right: 2%">Cadastrar</button>
+                                                <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Fechar</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.modal-content -->
+                            </div>
+                            <!-- /.modal-dialog -->
+                        </div>
+                    </div>
+                        <!-- fim model ver -->    
+
+
+
+                <div class="modal fade" tabindex="-1" id="modal-defaulte">
+                        <div class="modal-dialog " role="document">
+                        <div class="modal-content modalborda">
+
+                            <div class="row">
+                            <div class="col-md-12">
+                                <div class="box box-primary ">
+                                <div class="box-header with-border">
+                                    <h1 class="box-title">Evolução</h1>
+                                </div>
+                                <div class="row">
+                                    <form action="/evolucao" method="post">
+                                    <div class="col-md-12">
+                                        <div class="box-body">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">
+                                                    Evolução</label>
+                                            <textarea  cols="30" rows="10" name="evolucao" type="text" class="form-control" id="exampleInputEmail1" placeholder="Evolução"></textarea>
+                                            <input  name="codigo_agendamento" value="{{get}}" type="hidden" class="form-control" id="exampleInputEmail1" placeholder="Altura">
+                                        </div>
+
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-12">
+                                        <div class="box-footer">
+                                            <button class="btn btn-primary pull-left" style="margin-right: 2%">Cadastrar</button>
+                                            <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Fechar</button>
+                                        </div>
+                                    </div>
+                                </form>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                    </div>
+                </div>    
+
         </div>
     </div>
 </div>

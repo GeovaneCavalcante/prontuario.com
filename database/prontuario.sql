@@ -86,11 +86,11 @@ CREATE TABLE IF NOT EXISTS agendamentos(
     medico varchar(100) NOT NULL,
     is_active varchar(20),
     primary key (codigo),
-    foreign key (paciente) references pacientes(cpf),
-    foreign key (medico) references medicos(crm)
+    foreign key (paciente) references pacientes(cpf)  ON DELETE CASCADE ON UPDATE CASCADE,
+    foreign key (medico) references medicos(crm)  ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-
+drop table atendimentos;
 CREATE TABLE IF NOT EXISTS atendimentos (
 	codigo int not null auto_increment,
     p_renais varchar(40),
@@ -107,9 +107,57 @@ CREATE TABLE IF NOT EXISTS atendimentos (
     codigo_agendamento int not null,
     is_active varchar(20),
     primary key (codigo),
-    foreign key (codigo_agendamento) references agendamento(codigo)
-    
-)ENGINE = InnoDB;
+    foreign key (codigo_agendamento) references agendamentos(codigo) ON DELETE CASCADE ON UPDATE CASCADE
+);
+drop table sinais_vitais;
+create table sinais_vitais(
+	id int not null auto_increment,
+    hora varchar(40),
+    data_sinais varchar(40),
+    altura varchar(20),
+    peso varchar(20),
+    imc varchar(20),
+    temperatura varchar(20),
+    dor varchar(50),
+    is_active varchar(20),
+    codigo_agendamento int not null,
+    primary key (id),
+    foreign key (codigo_agendamento) references agendamentos(codigo) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+drop table hipoteses;
+create table hipoteses(
+	id int not null auto_increment,
+    hipotese varchar(400),
+    observacoes varchar(400),
+    is_active varchar(20),
+    codigo_agendamento int not null,
+    primary key (id),
+    foreign key (codigo_agendamento) references agendamentos(codigo) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+drop table prescricao;
+create table prescricao(
+	id int not null auto_increment,
+    prescricao varchar(1000),
+    is_active varchar(20),
+    codigo_agendamento int not null,
+    primary key (id),
+    foreign key (codigo_agendamento) references agendamentos(codigo) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+drop table evolucao;
+create table evolucao(
+	id int not null auto_increment,
+    evolucao varchar(1000),
+    is_active varchar(20),
+    codigo_agendamento int not null,
+    primary key (id),
+    foreign key (codigo_agendamento) references agendamentos(codigo) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+
+
 use mydb;
 select * from atendimentos;
 

@@ -55,6 +55,105 @@ class Atendimento{
         }
     }
 
+    public function insertSinais($dados){
+ 
+         $sql = "
+             INSERT INTO sinais_vitais
+             (
+                hora, data_sinais, altura, peso, imc, 
+                temperatura, dor, codigo_agendamento, is_active
+             )
+             VALUES
+             (
+                 '$dados[hora]', '$dados[data_sinais]', '$dados[altura]', 
+                 '$dados[peso]', '$dados[imc]', '$dados[temperatura]', 
+                 '$dados[dor]', '$dados[codigo_agendamento]', 'ativo'
+             )
+         ";
+ 
+         if ($this->connect->getConnection()->query($sql) == true){
+            
+             return ["status" => 200, "resultado" => "Criado com sucesso"];;
+         }else{
+             echo "Falha ao criar registro " . mysqli_error($this->connect->getConnection());
+             $error = $this->connect->getConnection()->error;
+             return ["status" => 405, "resultado" => "Falha ao criar registro: $error"];;
+         }
+     }
+
+     public function insertHipotese($dados){
+        
+        $sql = "
+            INSERT INTO hipoteses
+            (
+                hipotese, observacoes, is_active, codigo_agendamento
+            )
+            VALUES
+            ( 
+                '$dados[hipotese]', '$dados[observacoes]', 'ativo', 
+                '$dados[codigo_agendamento]'
+            )
+        ";
+
+        if ($this->connect->getConnection()->query($sql) == true){
+            
+            return ["status" => 200, "resultado" => "Criado com sucesso"];;
+        }else{
+            echo "Falha ao criar registro " . mysqli_error($this->connect->getConnection());
+            $error = $this->connect->getConnection()->error;
+            return ["status" => 405, "resultado" => "Falha ao criar registro: $error"];;
+        }
+    }
+
+    public function inserPrescricao($dados){
+        
+        $sql = "
+            INSERT INTO prescricao
+            (
+                prescricao, codigo_agendamento, is_active
+            )
+            VALUES
+            ( 
+                '$dados[prescricao]', '$dados[codigo_agendamento]', 'ativo'
+               
+            )
+        ";
+
+        if ($this->connect->getConnection()->query($sql) == true){
+            
+            return ["status" => 200, "resultado" => "Criado com sucesso"];;
+        }else{
+            echo "Falha ao criar registro " . mysqli_error($this->connect->getConnection());
+            $error = $this->connect->getConnection()->error;
+            return ["status" => 405, "resultado" => "Falha ao criar registro: $error"];;
+        }
+    }
+
+    public function inserEvolucao($dados){
+        
+        $sql = "
+            INSERT INTO evolucao
+            (
+                evolucao, codigo_agendamento, is_active
+            )
+            VALUES
+            ( 
+                '$dados[evolucao]', '$dados[codigo_agendamento]', 'ativo'
+               
+            )
+        ";
+
+        if ($this->connect->getConnection()->query($sql) == true){
+            
+            return ["status" => 200, "resultado" => "Criado com sucesso"];;
+        }else{
+            echo "Falha ao criar registro " . mysqli_error($this->connect->getConnection());
+            $error = $this->connect->getConnection()->error;
+            return ["status" => 405, "resultado" => "Falha ao criar registro: $error"];;
+        }
+    }
+
+
     public function getAtendimentos($cpf){
         $sql = "SELECT * FROM atendimentos where is_active = 'ativo'";
         $result = $this->connect->getConnection()->query($sql);

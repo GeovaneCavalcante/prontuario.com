@@ -40,6 +40,59 @@ class Atendimento{
         }
 
     }
+
+    public function insertSinais(){
+        
+        $result = $this->modelAtendimento->insertSinais($this->post);    
+
+        if($result['status'] == 200){
+            return $result['resultado'];
+        }else{
+            echo "erro";
+            die;
+        }
+
+    }
+
+    public function insertHipotese(){
+        
+        $result = $this->modelAtendimento->insertHipotese($this->post);    
+
+        if($result['status'] == 200){
+            return $result['resultado'];
+        }else{
+            echo "erro";
+            die;
+        }
+
+    }
+    
+
+    public function inserPrescricao(){
+        
+        $result = $this->modelAtendimento->inserPrescricao($this->post);    
+
+        if($result['status'] == 200){
+            return $result['resultado'];
+        }else{
+            echo "erro";
+            die;
+        }
+
+    }
+
+    public function inserEvolucao(){
+        
+        $result = $this->modelAtendimento->inserEvolucao($this->post);    
+
+        if($result['status'] == 200){
+            return $result['resultado'];
+        }else{
+            echo "erro";
+            die;
+        }
+
+    }
     
 
 }
