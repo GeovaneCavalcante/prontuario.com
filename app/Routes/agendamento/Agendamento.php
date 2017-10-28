@@ -39,14 +39,14 @@ class Agendamento{
                 $list = new \App\Controllers\agendamento\AgendamentoList();
                 $con = new \App\Controllers\agendamento\Agendamento($_POST);
                
-                if($con->Validacao()){
+                if($con->Validacao() or $con->verificacao()){
                     echo $this->twig->getTwig()->render('agendamento/cadastro.html', array(
                         "user" => $_SESSION,
                         "dados" => $list->getDados(),
                         "erros" => $con->Validacao(),
+                        "verificacao" => $con->verificacao(),
                         "form" => $_POST,
                         "agendamentos" => $list->getAgendamentos(),
-                        
                        
                     ));
                 }else{

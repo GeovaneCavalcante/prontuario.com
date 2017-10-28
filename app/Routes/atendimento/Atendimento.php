@@ -35,10 +35,19 @@ class Atendimento{
             $co = new \App\Controllers\atendimento\AtendimentoList();
 
             if ($_SESSION['statusMed'] == true){
+                if(!$_GET){
+                    $_GET['id'] = 0;
+                }    
+                $modelPaciente = new \App\Models\paciente\Paciente();
+                
+                if ($modelPaciente->getPaciente($_GET['id'])['status'] == 404){
+                    echo $this->twig->getTwig()->render('core\error.html');
+                }else{
                     echo $this->twig->getTwig()->render('atendimento/timeline.html', array(
-                    "user" => $_SESSION,
-                    "atendimentos" => $co->getAtendimentos($_GET['id'])    
-                ));
+                        "user" => $_SESSION,
+                        "agendamentos" => $co->getAtendimentosTime($_GET['id'])    
+                    ));
+                }
             }else{
                 $response->redirect('/login');
             }

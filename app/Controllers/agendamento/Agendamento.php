@@ -28,6 +28,25 @@ class Agendamento{
         }
     }
 
+    public function verificacao(){
+        $data = $this->post['data_agendamento'];
+        $hora = $this->post['hora_agendamento'];
+        $sql = "select * from agendamentos where data_agendamento = '$data' and hora_agendamento = '$hora' and is_active = 'ativo'";
+        
+        $result = $this->connect->getConnection()->query($sql);
+        
+        $resultado = mysqli_fetch_assoc($result);
+
+        if($resultado){
+            $errors[0] = "Agendamento já preenchido nessa Data/Hora";
+            return $errors;
+        }else{
+            $errors = [];
+            return $errors;
+    
+        }
+    }
+
     public function insertAgendamento(){
 
         $result = $this->modelAgendamento->insertAgendamento($this->post);    

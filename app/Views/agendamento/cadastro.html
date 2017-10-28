@@ -33,6 +33,15 @@
     Preencha os campos necessários para concluir o cadastro!
 </div>
 {% endif %}
+{% if verificacao %}
+<div class="alert alert-warning alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+    <h4>
+        <i class="icon fa fa-ban"></i>
+        Atenção</h4>
+    {{verificacao[0]}}
+</div>
+{% endif %}
 {% if agendado == 'ok' %}
 <div class="alert alert-success alert-dismissible">
     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -69,6 +78,7 @@
                         </div>
 
                         <div class="col-sm-2">
+                                <div class="bootstrap-timepicker">
                             <div class="form-group {% if erros.hora_agendamento %} has-error {% endif %}">
                                 <label>Hora
                                     <b style="color: red">*</b>
@@ -85,6 +95,7 @@
                                 <span class="help-block">Hora é obrigatória</span>
                                 {% endif %}
                             </div>
+                                </div>
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group {% if erros.paciente %} has-error {% endif %}">

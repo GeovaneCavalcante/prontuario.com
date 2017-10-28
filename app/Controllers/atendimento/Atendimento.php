@@ -41,6 +41,8 @@ class Atendimento{
 
     }
 
+  
+
     public function insertSinais(){
         
         $result = $this->modelAtendimento->insertSinais($this->post);    

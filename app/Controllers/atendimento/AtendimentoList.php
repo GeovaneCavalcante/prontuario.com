@@ -41,29 +41,40 @@ class AtendimentoList{
         }
     }
 
-    public function getAgendamento($cod){
-        $agendamento = $this->modelAgendamento->getAgendamento($cod);
 
-        if ($agendamento['status'] == 200){
-           
-            return $agendamento['resultado'];
-        }else{
-          
-            return 404;
+    public function getAtendimentosTime($cpf){
+
+        $modelAgendamento = new \App\Models\agendamento\Agendamento();
+        $agendamentos = $modelAgendamento->getAgendamentoPaciente($cpf);
+        
+        $array = [];
+        $i = 0;
+        if($agendamentos['status'] == 200){
+    
+            foreach($agendamentos['resultado'] as $agendamento){
+                $atendimento = $this->modelAtendimento->getAtendimento($agendamento['codigo']);
+                $hipotese = $this->modelAtendimento->getHipotese($agendamento['codigo']); 
+                $evolucao = $this->modelAtendimento->getEvolucao($agendamento['codigo']); 
+
+                if($evolucao['status'] == 200){
+                    $agendamento['evolucao'] = $evolucao['resultado'];
+                    $array[$i] =  $agendamento;
+                }
+
+                if($hipotese['status'] == 200){
+                    $agendamento['hipotese'] = $hipotese['resultado'];
+                    $array[$i] =  $agendamento;
+                }
+
+                if($atendimento['status'] == 200){
+                    $agendamento['atendimento'] = $atendimento['resultado'];
+                    $array[$i] =  $agendamento;
+                }
+            
+                $i++;    
+            }
         }
-    }
-
-    public function getAgendamentoEsp($crm){
-        $agendamentos = $this->modelAgendamento->getAgendamentoEsp($crm);
-       
-        if ($agendamentos['status'] == 200){
-             return $agendamentos['resultado'];
-         }else{
-             return 404;
-         }
-    }
-    public function deletaAgendamento($id){
-        $agendamento = $this->modelAgendamento->deletaAgendamento($id);
+        return $array;
     }
 
 }

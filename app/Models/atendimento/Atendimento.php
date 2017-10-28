@@ -231,8 +231,34 @@ class Atendimento{
         return ["status" => 200, "resultado" => $array];
     }
 
-    public function getAgendamento($id){
-        $sql = "select * from agendamentos where codigo= '$id' and is_active = 'ativo'";
+    public function getAtendimento($id){
+        $sql = "select * from atendimentos where codigo_agendamento= '$id' and is_active = 'ativo'";
+
+        $result = $this->connect->getConnection()->query($sql);
+        $resultado = mysqli_fetch_assoc($result);
+
+        if($resultado){
+            return ["status" => 200, "resultado" => $resultado];
+        }else{
+            return ["status" => 404, "resultado" => "Nada encontrado"];
+        }
+    }
+
+    public function getHipotese($id){
+        $sql = "select * from hipoteses where codigo_agendamento= '$id' and is_active = 'ativo'";
+
+        $result = $this->connect->getConnection()->query($sql);
+        $resultado = mysqli_fetch_assoc($result);
+
+        if($resultado){
+            return ["status" => 200, "resultado" => $resultado];
+        }else{
+            return ["status" => 404, "resultado" => "Nada encontrado"];
+        }
+    }
+
+    public function getEvolucao($id){
+        $sql = "select * from evolucao where codigo_agendamento= '$id' and is_active = 'ativo'";
 
         $result = $this->connect->getConnection()->query($sql);
         $resultado = mysqli_fetch_assoc($result);

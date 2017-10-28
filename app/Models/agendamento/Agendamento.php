@@ -60,6 +60,7 @@ class Agendamento{
                 $array[$i] = $dados;
                 $i++;
             }
+          
        
             return ["status" => 200, "resultado" => $array];
         }
@@ -67,7 +68,7 @@ class Agendamento{
     }
 
     public function getAgendamentoEsp($crm){
-
+        
         $sql = "SELECT * FROM agendamentos where medico ='$crm' and is_active = 'ativo' order by data_agendamento asc";
         $result = $this->connect->getConnection()->query($sql);
 
@@ -96,13 +97,14 @@ class Agendamento{
                 $array[$i] = $dados;
                 $i++;
             }
+           
         }
         return ["status" => 200, "resultado" => $array];
     }
 
     public function getAgendamentoPaciente($cpf){
         
-        $sql = "SELECT * FROM agendamentos where paciente ='$cpf' and is_active = 'ativo' order by data_agendamento asc";
+        $sql = "SELECT * FROM agendamentos where paciente ='$cpf' order by data_agendamento asc";
         $result = $this->connect->getConnection()->query($sql);
 
         if (!$result){
@@ -130,6 +132,7 @@ class Agendamento{
                 $array[$i] = $dados;
                 $i++;
             }
+        
         }
         return ["status" => 200, "resultado" => $array];
     }
